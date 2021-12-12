@@ -5,47 +5,48 @@ Reallocating 'name_of_file' (item size: 1) to 8 items.
 The style file: plabbrv.bst
 Reallocating 'name_of_file' (item size: 1) to 11 items.
 Database file #1: literatura.bib
-Warning--to sort, need author or key in Java
-Warning--empty journal in JCINodesChord
+Warning--to sort, need author or key in Firebase
+Warning--empty publisher in Flutter
+Warning--empty journal in RummikubComplexity
 You've used 3 entries,
             2129 wiz_defined-function locations,
-            518 strings with 4130 characters,
-and the built_in function-call counts, 738 in all, are:
-= -- 66
-> -- 36
+            517 strings with 4041 characters,
+and the built_in function-call counts, 673 in all, are:
+= -- 59
+> -- 26
 < -- 0
-+ -- 15
-- -- 12
-* -- 40
-:= -- 126
++ -- 12
+- -- 8
+* -- 34
+:= -- 113
 add.period$ -- 8
 call.type$ -- 3
-change.case$ -- 14
+change.case$ -- 12
 chr.to.int$ -- 0
-cite$ -- 5
+cite$ -- 6
 duplicate$ -- 29
 empty$ -- 63
-format.name$ -- 12
-if$ -- 153
+format.name$ -- 8
+if$ -- 140
 int.to.chr$ -- 0
 int.to.str$ -- 3
 missing$ -- 3
 newline$ -- 17
 num.names$ -- 4
-pop$ -- 26
+pop$ -- 25
 preamble$ -- 1
-purify$ -- 12
+purify$ -- 10
 quote$ -- 0
-skip$ -- 25
+skip$ -- 23
 stack$ -- 0
-substring$ -- 15
+substring$ -- 16
 swap$ -- 2
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 10
-warning$ -- 2
+warning$ -- 3
 while$ -- 4
 width$ -- 4
-write$ -- 28
-(There were 2 warnings)
+write$ -- 27
+(There were 3 warnings)

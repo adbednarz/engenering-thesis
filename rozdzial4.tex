@@ -1,5 +1,28 @@
-\chapter{Bot}
+\chapter{Implementacja serwisu}
 \thispagestyle{chapterBeginStyle}
 
-W tym rozdziale należy omówić zawartość pakietu instalacyjnego oraz założenia co do środowiska, w którym realizowany system będzie instalowany. Należy przedstawić procedurę instalacji i wdrożenia systemu. Czynności instalacyjne powinny być szczegółowo rozpisane na kroki. Procedura wdrożenia powinna obejmować konfigurację platformy sprzętowej, OS (np. konfiguracje niezbędnych sterowników) oraz konfigurację wdrażanego systemu, m.in.\ tworzenia niezbędnych kont użytkowników. Procedura instalacji powinna prowadzić od stanu, w którym nie są zainstalowane żadne składniki systemu, do stanu w którym system jest gotowy do pracy i oczekuje na akcje typowego użytkownika.
+\section{Serwer}
+
+Przy implementacji serwera wykorzystano głównie trzy moduły Firebase takie jak uwierzytelnianie, firestore (baza danych NoSQL) oraz funkcje. Jako metodę uwierzytelnienia użytkownika przy rejestracji wybrano opcję weryfikacji za pomocą adresu email.
+
+\subsection{Baza danych}
+
+W bazie danych czasu rzeczywistego Firestore zostały umieszczone dwie kolekcje - \emph{Users}, \emph{Games}. \\
+
+W kolekcji \emph{Users} są przechowywane dokumenty indeksowane unikatowymi kodami ID użytkownika, które są przydzielane w czasie rejestracji. Każdy dokument zawiera pola \emph{name} i \emph{active}. Pole \emph{name} odnosi się do nazwy użytkownika, a pole \emph{active} jest wartością logiczną wskazującą, czy dany użytkownik jest dostępny w grze (jest zalogowany i obecnie nie znajduje się w rozgrywce z innymi graczami). Opcjonalne pole \emph{invitation} jest mapą zawierającą klucze \emph{gameId} oraz \emph{player}, których wartości wskazują kolejno na kod ID gry i nazwę gracza, który zaprosił danego gracza do swojej gry. \\
+
+W kolekcji \emph{Games} są przechowywane dokumenty indeksowane automatycznie generowanymi unikatowymi kodami ID przy tworzeniu dokumentu i które są przypisane jako kody ID gier. Każdy dokument zawiera trzy pola: \emph{available} (wskazuje ile graczy może jeszcze dołączyć do gry), \emph{currentTurn} (wskazuje jakiego gracza jest teraz kolej), \emph{size} (wskazuje na liczbę graczy w grze). Ponadto dokument danej gry zawiera jeszcze subkolekcje \emph{playersQueue}, \emph{playersRacks}, \emph{pool}, \emph{state}.
+
+\subsection{Funkcje}
+
+
+
+\section{Klient}
+
+Warstwa klienta w serwisie napisana we Flutterze jest dostępna jako aplikacja na telefon albo jako strona internetowa. Z uwagi na wieloplatformowość Fluttera kod źródłowy obu wersji klienta jest wspólny z odpowiednimi konfiguracjami i modyfikacjami na poszczególne platformy.
+
+\subsection{Diagramy klas}
+
+\subsection{Diagramy sekwencji}
+
 

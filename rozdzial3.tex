@@ -1,99 +1,46 @@
-\chapter{Implementacja serwisu}
+\chapter{Opis technologii}
 \thispagestyle{chapterBeginStyle}
 
-\section{Opis technologii}
+W rozdziale tym wskazano jakie podejście technologiczne zostało użyte wraz z omówieniem i zaargumentowaniem powodu takiego wyboru. Przedstawiono również jakie konkretne aspekty tych technologii zostały wykorzystane w projekcie.
 
-Należy tutaj zamieścić krótki opis (z referencjami) do technologii użytych przy implementacji systemu.
+\section{Flutter}
 
-{\color{dgray}
-Do implementacji systemu użyto języka JAVA w wersji \ldots, szczegółowy opis można znaleźć w \cite{Java}. Interfejs zaprojektowano w oparciu o HTML5 i CSS3 \cite{HTML-CSS}.
-}
+Do implementacji serwisu po stronie klienta użyto technologii Flutter. Jest to zestaw narzędzi pozwalający tworzyć natywne, wieloplatformowe aplikacje mobilne, komputerowe oraz internetowe. Flutter stworzony jest przez firmę Google, a jego pierwsza stabilna wersja ukazała się pod koniec 2019 roku. Mimo stosunkowo młodej technologii Google przyczynia się do jej dynamicznego rozwoju i zdobywania popularności wśród programistów. Aplikacje we Flutterze pisze się w języku Dart. Jest to zorientowany obiektowo, statycznie typowany, wysokopoziomowy język programowania.
+Składnia języka Dart wzorowana była na takich językach programowania jak Java czy C\#, aby ułatwić programistom naukę nowego języka.
 
-\section{Omówienie kodów źródłowych}
+\subsection{Architektura}
 
-{\color{dgray}
-Kod źródłowy~\ref{ws} przedstawia opisy poszczególnych metod interfejsu: \texttt{WSPodmiotRejestracjaIF}. Kompletne
-kody źródłowe znajdują się na płycie CD dołączonej do niniejszej pracy w katalogu \texttt{Kody} (patrz Dodatek~\ref{plytaCD}).
-}
+Flutter domyślnie nie oddziela kodu dotyczącego sposobu działania programu od części wizualnej. Chcąc wyodrębnić aspekty wizualne od aspektów logicznych aplikacji, należy użyć wybranego wzorca architektury. Istnieje wiele pakietów pomagających zaimplementować poszczególne wzorce. W tym projekcie zastosowano rekomendowany przez Google pakiet BLoC, który umożliwia implementacje architektury trójwarstwowej z podziałem na warstwę wizualną, logiki i danych, jak również wprowadza system zarządzania stanami w aplikacji.
 
-\begin{small}
-\begin{lstlisting}[language=Java, frame=lines, numberstyle=\tiny, stepnumber=5, caption=Interfejs usługi Web Service: \texttt{WSPodmiotRejestracjaIF}\label{ws}., firstnumber=1]
-package erejestracja.podmiot;
-import java.rmi.RemoteException;
-// Interfejs web serwisu dotyczącego obsługi podmiotów i rejestracji.
-public interface WSPodmiotRejestracjaIF extends java.rmi.Remote{
-// Pokazuje informacje o danym podmiocie.
-// parametr: nrPeselRegon - numer PESEL podmiotu lub numer REGON firmy.
-// return: Podmiot - obiekt transportowy: informacje o danym podmiocie.
-public Podmiot pokazPodmiot(long nrPeselRegon) throws RemoteException;
-// Dodaje nowy podmiot.
-// parametr: nowyPodmiot - obiekt transportowy: informacje o nowym podmiocie.
-// return: true - jeśli podmiot dodano, false - jeśli nie dodano.
-public boolean dodajPodmiot(Podmiot nowyPodmiot) throws RemoteException;
-// Usuwa dany podmiot.
-// parametr: nrPeselRegon - numer PESEL osoby fizycznej lub numer REGON firmy.
-// return: true - jeśli podmiot usunięto, false - jeśli nie usunięto.
-public boolean usunPodmiot(long nrPeselRegon) throws RemoteException;
-// Modyfikuje dany podmiot.
-// parametr: podmiot - obiekt transportowy: informacje o modyfikowanym podmiocie.
-// return: true - jeśli podmiot zmodyfikowano, false - jeśli nie zmodyfikowano.
-public boolean modyfikujPodmiot(Podmiot podmiot) throws RemoteException;
-// Pokazuje zarejestrowane podmioty na dany dowód rejestracyjny.
-// parametr: nrDowoduRejestracyjnego - numer dowodu rejestracyjnego.
-// return: PodmiotRejestracja[] - tablica obiektów transportowych: informacje o
-// wszystkich zarejestrowanych podmiotach.
-public PodmiotRejestracja[] pokazZarejestrowanePodmioty(
-String nrDowoduRejestracyjnego) throws RemoteException;
-// Nowa rejestracja podmiotu na dany dowód rejestracyjny.
-// parametr: nrDowoduRejestracyjnego - numer dowodu rejestracyjnego.
-// parametr: nrPeselRegon - numer PESEL podmiotu lub numer REGON firmy.
-// parametr: czyWlasciciel - czy dany podmiot jest właścicielem pojazdu.
-// return: true - jeśli zarejestrowano podmiot, false - jeśli nie zarejestrowano.
-public boolean zarejestrujNowyPodmiot(String nrDowoduRejestracyjnego,
-long nrPeselRegon, boolean czyWlasciciel) throws RemoteException;
-// Usuwa wiązanie pomiędzy danym podmiotem, a dowodem rejestracyjnym.
-// parametr: nrDowoduRejestracyjnego - numer dowodu rejestracyjnego.
-// parametr: nrPeselRegon - numer PESEL podmiotu lub numer REGON firmy.
-// return: true - jeśli podmiot wyrejestrowano, false - jeśli nie wyrejestrowano.
-public boolean wyrejestrujPodmiot(String nrDowoduRejestracyjnego,
-long nrPeselRegon) throws RemoteException;
-\end{lstlisting} 
-\end{small}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{img/cubit.png}
+	\end{center}
+	\caption{{\color{dgray}Model struktury wzorca projektowego BLoC.}} 
+	\label{struktura_BLoC}
+\end{figure}  
 
-{\color{dgray}
-Kod źródłowy~\ref{req} przedstawia procedurę przetwarzającą żądanie. Hasz utrwalany \verb|%granulacja| wykorzystywany jest do komunikacji międzyprocesowej.
-}
+BLoC (Business Logic Component) - wzorzec projektowy pomagający oddzielić elementy wizualne projektu od części logiki działania programu. Dzieli projekt na trzy główne komponenty UI, cubit, data.
 
-\begin{small}
-\begin{lstlisting}[language=perl, frame=lines, caption=Przetwarzanie żądania - procedura \texttt{process\_req()}\label{req}., firstnumber=86]
-sub process_req(){	
-  my($r) = @_;
-  $wyn = "";
-  if ($r=~/get/i) {
-	@reqest = split(" ",$r);
-	$zad = $reqest[0];
-	$ts1 = $reqest[1];
-	$ts2 = $reqest[2];
-	@date1 = split(/\D/,$ts1);
-	@date2 = split(/\D/,$ts2);
-	print "odebralem: $r"; 
-	$wyn = $wyn."zadanie: $zad\n";
-	$wyn = $wyn."czas_od: "."$date1[0]"."-"."$date1[1]"."-"."$date1[2]"."_"."$date1[3]".":"."$date1[4]".":"."$date1[5]"."\n";
-	$wyn = $wyn."czas_do: "."$date2[0]"."-"."$date2[1]"."-"."$date2[2]"."_"."$date2[3]".":"."$date2[4]".":"."$date2[5]"."\n";		
-	$wyn = $wyn.&sym_sens($ts1,$ts2);
-	return $wyn;
-  }
-  if ($r=~/set gt/i) {
-	@reqest = split(" ",$r);
-	$zad = $reqest[0];
-	$ts1 = $reqest[1];
-	$ts2 = $reqest[2];
-	$gt = $reqest[2];
-	dbmopen(%granulacja,"granulacja_baza",0644);
-	$granulacja{"gt"}=$gt;
-	dbmclose(%granulacja);
-	$wyn = "\'GT\' zmienione na: $gt";
-  }		
-}	
-\end{lstlisting} 
-\end{small}
+Warstwa UI jest odpowiedzialna za część wizualną aplikacji, cubit jest warstwą zawierającą mechanizmy działania aplikacji oraz pomostem pomiędzy interfejsem użytkownika, a zewnętrznymi danymi, natomiast warstwa data komunikuje się z zewnętrznymi instancjami (serwer, baza danych).\\
+
+Cubit komunikuje się z warstwą danych poprzez funkcje asynchroniczne. Natomiast chcąc wpłynąć na zmianę wyglądu aplikacji korzysta z programowania reaktywnego. Mianowicie wysyła poszczególne stany strumieniem, którego dany element interfejsu aplikacji nasłuchuje. Stan jest to klasa reprezentująca dany stan poszczególnego elementu aplikacji. Relacja w drugą stronę polega na wywoływaniu bezpośrednio funkcji (synchronicznej lub asynchronicznej) na instancji cubita.
+
+\section{Firebase}
+
+Rolę serwera i bazy danych pełni platforma Firebase. Technologia ta, zarządzana również przez Google, określana jest jako Backend-as-a-Service. Firebase dostarcza wiele funkcjonalności wspierające tworzenie projektów w tym między innymi uwierzytelnianie użytkowników, bazę danych NoSQL oraz API odpowiedzialne za komunikację.
+
+\subsection{Firestore}
+
+\subsection{Funkcje Firebase}
+
+\subsection{Emulator}
+
+Korzystając z funkcjonalności funkcji Firebase napotyka się na problem długiego czasu oczekiwania na zaktualizowanie kodu źródłowego programisty w chmurze Firebase (czas trwania około minuty). Oczekiwanie dłuższe niż parę sekund sprawia, że czas tworzenia kodu źródłowego po stronie serwera znacząco się wydłuża. Kolejną sprawą jest fakt, że w trakcie, gdy dany projekt jest już dostępny dla użytkowników, nie jest wskazana jego modyfikacja. Zatem trzeba tworzyć kopie projektu, które przeznaczone są modyfikacji, co w przypadku, gdy nad projektem pracuje wielu programistów, staje się jeszcze bardziej nieefektywne. Ostatnim aspektem są koszty. W momencie programowania i testowania funkcjonalności serwera może dochodzić do generowania dużej ilości zapytań, co z kolei sumuje się do liczby zapytań i ewentualnych płatności. \\
+
+Z powodu wyżej wymienionych problemów wraz z rozwojem platformy Firebase w 2019 roku oficjalnie został zaprezentowany Firebase Local Emulators. Emulator ten pozwala uruchomić wszystkie usługi Firebase lokalnie na własnym komputerze. Dzięki czemu szybko można nanieść zmiany w funkcjach Firebase, nie modyfikując właściwego projektu, a wykonywane zapytania nie są zliczane. \\
+
+Każda usługa udostępniana przez platformę Firebase ma swój własny emulator, który jest uruchamiany na osobnym porcie. Zatem można uruchomić jedynie te emulatory tych funkcjonalności, które są wykorzystywane w projekcie. Ponadto fakt uruchomienia lokalnie funkcji Firebase  umożliwia debugowanie kodu.
+
+
+

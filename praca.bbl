@@ -1,17 +1,17 @@
 \begin{thebibliography}{1}
 
-\bibitem{Java}
-Java technology.
-\newblock Web pages: \url{http://www.oracle.com/technetwork/java/}.
+\bibitem{Firebase}
+Firebase technology.
+\newblock Web pages: \url{https://firebase.google.com/}.
 
-\bibitem{JCINodesChord}
-J.~Cichoń, M.~Klonowski, Łukasz Krzywiecki, B.~Różański, P.~Zieliński.
-\newblock On the number of nodes and their distribution in chord.
-\newblock 2006.
+\bibitem{Flutter}
+A.~Miola.
+\newblock {\em Flutter Complete Reference}.
+\newblock 2020.
 
-\bibitem{HTML-CSS}
-B.~Frain.
-\newblock {\em Responsive Web Design with HTML5 and CSS3}.
-\newblock Packt Publishing, 2012.
+\bibitem{RummikubComplexity}
+J.~N. van Rijn, F.~W. Takes, J.~K. Vis.
+\newblock The complexity of rummikub problems.
+\newblock 2016.
 
 \end{thebibliography}
