@@ -19,10 +19,10 @@
 \contentsline {chapter}{\numberline {4}Implementacja serwisu}{9}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Serwer}{9}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Baza danych}{9}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Funkcje}{9}{subsection.4.1.2}%
-\contentsline {section}{\numberline {4.2}Klient}{9}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Diagramy klas}{9}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Diagramy sekwencji}{9}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.1.2}Funkcje}{10}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Klient}{10}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Diagramy klas}{10}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Diagramy sekwencji}{10}{subsection.4.2.2}%
 \contentsline {chapter}{\numberline {5}Bot}{11}{chapter.5}%
 \contentsline {chapter}{Podsumowanie}{13}{chapter*.3}%
 \contentsline {chapter}{Bibliografia}{15}{chapter*.4}%

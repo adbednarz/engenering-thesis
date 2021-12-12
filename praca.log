@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  12 DEC 2021 02:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  12 DEC 2021 10:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1084,19 +1084,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
  []
 
-) [9
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+
+ []
+
+[9
 
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+
+ []
+
+)
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 717.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [10
-
-] (rozdzial5.tex
+ [10] (rozdzial5.tex
 Rozdzia\l  5.
 ) [11
+
 
 ]
 File: img/wit-logo.png Graphic file (type png)
@@ -1145,7 +1154,7 @@ Here is how much of TeX's memory you used:
  36396 multiletter control sequences out of 15000+600000
  460219 words of font info for 64 fonts, out of 8000000 for 9000
  1180 hyphenation exceptions out of 8191
- 60i,18n,63p,923b,448s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,18n,63p,1002b,448s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:
 /Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Use
 rs/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rmsc.enc}<C:/Users/
@@ -1156,7 +1165,7 @@ am/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Adam
 /AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Adam/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/Adam/AppD
 ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb>
-Output written on praca.pdf (24 pages, 322936 bytes).
+Output written on praca.pdf (24 pages, 325282 bytes).
 PDF statistics:
  307 PDF objects out of 1000 (max. 8388607)
  56 named destinations out of 1000 (max. 500000)
