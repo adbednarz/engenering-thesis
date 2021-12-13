@@ -28,11 +28,24 @@ Cubit komunikuje się z warstwą danych poprzez funkcje asynchroniczne. Natomias
 
 \section{Firebase}
 
-Rolę serwera i bazy danych pełni platforma Firebase. Technologia ta, zarządzana również przez Google, określana jest jako Backend-as-a-Service. Firebase dostarcza wiele funkcjonalności wspierające tworzenie projektów w tym między innymi uwierzytelnianie użytkowników, bazę danych NoSQL oraz API odpowiedzialne za komunikację.
+Rolę serwera i bazy danych pełni platforma Firebase. Technologia ta, zarządzana również przez Google, określana jest jako Backend-as-a-Service. Firebase dostarcza wiele funkcjonalności wspierające tworzenie projektów w tym między innymi uwierzytelnianie użytkowników, bazę danych NoSQL oraz API odpowiedzialne za komunikację. Usługi, które świadczy Firebase są bezpłatne, jeśli nie przekroczą pewnego z góry ustalonego limitu zdefiniowanego dla poszczególnej funkcjonalności. 
 
 \subsection{Firestore}
 
+Firestore jest to baza danych NoSQL w chmurze. Jej strukturą są kolekcje, które zawierają dokumenty, które te z kolei zawierają dane, ale także mogą zawierać kolejne kolekcje. \\
+Definiując zapytania do bazy danych zwracane są jedynie dokumenty z poszczególnej kolekcji lub grup kolekcji. Firestore umożliwia tworzenie prostych zapytań SQL, które filtruje wyniki na podstawie wartości danych znajdujących się w dokumencie. \\
+Firebase umożliwia po stronie klienta implementacje słuchaczy, którzy będą niezwłocznie informowani, gdy w obserwowanym dokumencie zaszła zmiana. \\
+Firestore umożliwia konfigurację dostępu do bazy danych za pomocą definiowania reguł bezpieczeństwa. Dla każdego dokumentu oraz pola można zdefiniować zakres dostępu (czytanie, modyfikacja, usuwanie) dla poszczególnego użytkownika.
+
+
 \subsection{Funkcje Firebase}
+
+Umożliwiają zaimplementowanie własnego kodu po stronie serwera. Są wywoływane poprzez zapytania HTTPS lub w odpowiedzi na zdarzenia powstałe w bazie danych Firestore. \\
+Możliwe jest wywoływanie bezpośrednio z poziomu aplikacji. Do zapytania dołączane są tokeny uwierzytelniania Firebase i tokeny sprawdzania aplikacji.
+
+\subsection{Konsola Firebase}
+
+Jest to strona internetowa, która oferuje dostęp do wszystkich funkcjonalności Firebase. Aby korzystać z platformy Firebase należy założyć tam własny projekt i skonfigurować go z docelową aplikacją. Po wstępnej konfiguracji otrzymuje się panel kontroli nad platformą Firebase dla projektu. Widzi się cały ruch generowany przez klientów w poszczególnych funkcjonalnościach np. liczba zapisów do bazy danych. Za pomocą konsoli można konfigurować i modyfikować każdą usługę. Zapewnia bezpośrednio dostęp do bazy danych, zarządzanie zarejestrowanymi użytkownikami, monitorowanie procesu działania serwisu. 
 
 \subsection{Emulator}
 

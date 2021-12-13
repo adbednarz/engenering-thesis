@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  12 DEC 2021 10:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  13 DEC 2021 01:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -974,7 +974,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
 
 ]
-<img/wit-logo.png, id=174, 225.84375pt x 225.84375pt>
+<img/wit-logo.png, id=199, 225.84375pt x 225.84375pt>
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 705.
@@ -1034,6 +1034,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--18
 
  []
 
+<img/przypadki-uzycia.png, id=214, 492.84125pt x 623.32875pt>
+File: img/przypadki-uzycia.png Graphic file (type png)
+<use img/przypadki-uzycia.png>
+Package pdftex.def Info: img/przypadki-uzycia.png  used on input line 23.
+(pdftex.def)             Requested size: 284.53961pt x 341.43372pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 ) [5
 
 ]
@@ -1041,11 +1049,9 @@ File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 711.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [6
-
-] (rozdzial3.tex
+ [6 <./img/przypadki-uzycia.png>] (rozdzial3.tex
 Rozdzia\l  3.
-<img/cubit.png, id=197, 648.17157pt x 170.13562pt>
+<img/cubit.png, id=226, 648.17157pt x 170.13562pt>
 File: img/cubit.png Graphic file (type png)
 <use img/cubit.png>
 Package pdftex.def Info: img/cubit.png  used on input line 17.
@@ -1057,22 +1063,35 @@ Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
 [7
 
+
  <./img/cubit.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 39--40
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--42
+File: img/wit-logo.png Graphic file (type png)
+<use img/wit-logo.png>
+Package pdftex.def Info: img/wit-logo.png  used on input line 53.
+(pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
 
  []
 
 )
+<img/pwr-logo.png, id=238, 217.81375pt x 216.81pt>
+File: img/pwr-logo.png Graphic file (type png)
+<use img/pwr-logo.png>
+Package pdftex.def Info: img/pwr-logo.png  used on input line 714.
+(pdftex.def)             Requested size: 22.89163pt x 22.7839pt.
+ [9 <./img/pwr-logo.png>]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 714.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [8] (rozdzial4.tex
+ [10
+
+] (rozdzial4.tex
 Rozdzia\l  4.
 
 Underfull \hbox (badness 10000) in paragraph at lines 10--11
@@ -1084,27 +1103,59 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
  []
 
+[11
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--24
+]
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
 
-[9
+
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
+
+ []
+
+File: img/wit-logo.png Graphic file (type png)
+<use img/wit-logo.png>
+Package pdftex.def Info: img/wit-logo.png  used on input line 49.
+(pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 49--51
+
+ []
 
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 25--26
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 )
+File: img/pwr-logo.png Graphic file (type png)
+<use img/pwr-logo.png>
+Package pdftex.def Info: img/pwr-logo.png  used on input line 717.
+(pdftex.def)             Requested size: 22.89163pt x 22.7839pt.
+ [13]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 717.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [10] (rozdzial5.tex
+ [14] (rozdzial5.tex
 Rozdzia\l  5.
-) [11
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 6.
+
+) [15
 
 
 ]
@@ -1112,49 +1163,49 @@ File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 720.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [12
+ [16
 
-] (podsumowanie.tex) [13
+] (podsumowanie.tex) [17
 
 ]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 723.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [14
+ [18
 
-] (praca.bbl) [15
+] (praca.bbl) [19
 
 ]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 735.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [16
+ [20
 
 ] (dodatek1.tex
 Załącznik A.
-) [17
+) [21
 
 ]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 747.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [18
+ [22
 
 ] (praca.aux)
 Package rerunfilecheck Info: File `praca.out' has not changed.
-(rerunfilecheck)             Checksum: 8C3F92857F14C4048A68804F1915A3E7;3130.
+(rerunfilecheck)             Checksum: 7DE15BD2DF06DB1B2D264C0B6A64DDF3;3690.
  ) 
 Here is how much of TeX's memory you used:
- 18730 strings out of 478659
- 304639 string characters out of 2846394
- 638608 words of memory out of 3000000
- 36396 multiletter control sequences out of 15000+600000
+ 18764 strings out of 478659
+ 305285 string characters out of 2846394
+ 641686 words of memory out of 3000000
+ 36418 multiletter control sequences out of 15000+600000
  460219 words of font info for 64 fonts, out of 8000000 for 9000
  1180 hyphenation exceptions out of 8191
- 60i,18n,63p,1002b,448s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,18n,66p,1130b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:
 /Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Use
 rs/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rmsc.enc}<C:/Users/
@@ -1165,9 +1216,9 @@ am/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Adam
 /AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Adam/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/Adam/AppD
 ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb>
-Output written on praca.pdf (24 pages, 325282 bytes).
+Output written on praca.pdf (28 pages, 368559 bytes).
 PDF statistics:
- 307 PDF objects out of 1000 (max. 8388607)
- 56 named destinations out of 1000 (max. 500000)
- 227 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 354 PDF objects out of 1000 (max. 8388607)
+ 66 named destinations out of 1000 (max. 500000)
+ 277 words of extra memory for PDF output out of 10000 (max. 10000000)
 

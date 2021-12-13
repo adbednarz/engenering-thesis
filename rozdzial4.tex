@@ -3,7 +3,7 @@
 
 \section{Serwer}
 
-Przy implementacji serwera wykorzystano głównie trzy moduły Firebase takie jak uwierzytelnianie, firestore (baza danych NoSQL) oraz funkcje. Jako metodę uwierzytelnienia użytkownika przy rejestracji wybrano opcję weryfikacji za pomocą adresu email.
+Przy implementacji serwera wykorzystano głównie trzy moduły Firebase takie jak uwierzytelnianie, firestore (baza danych NoSQL) oraz funkcje. Jako metodę rejestracji użytkownika wybrano opcję weryfikacji za pomocą adresu email. Komunikacja pomiędzy serwerem, a klientem opiera się na dwóch sposobach. Klient może bezpośrednio nasłuchiwać zmian zachodzących w bazie danych Firestore, albo wywoływać funkcje Firebase.
 
 \subsection{Baza danych}
 
@@ -17,14 +17,60 @@ Subkolekcja \emph{playersRack} to zbiór dokumentów z automatycznie generowanym
 Subkolekcja \emph{pool} to z kolei zbiór dokumentów z automatycznie generowanymi kodami ID. Zbiór tych dokumentów przedstawia bank w grze, czyli wszystkie kości, które nie znajdują się na planszy ani nie są przydzielone do gracza. Każdy dokument ma pola \emph{color} oraz \emph{number}. \\
 Subkolekcja \emph{state} zawiera dokładnie jeden dokument \emph{sets} o najbardziej złożonej strukturze. W dokumencie \emph{sets} znajdują się wszystkie zbiory, które są wyłożone na planszy. Struktura tego dokumentu składa się z mapy, w której klucze to pozycja pierwszej kości z danego zbioru na planszy, a więc moment, w którym rozpoczyna się dany zbiór kości. Wartości tej mapy to tablica kości, gdzie każda kość jest w postaci mapy z kluczami \emph{color} i \emph{number}. Taki sposób przedstawienia stanu planszy wynika głównie z optymizacji kosztów modyfikowania bazy danych. Nie rozbito każdego zbioru kości na osobne dokumenty, ponieważ zwiększa to nam liczbę zliczanych zapisów do bazy danych. Ponadto w tym przypadku nie ma potrzeby korzystania z właściwości oferowanych przez dokumenty takie jak śledzenie zmian w danym dokumencie czy możliwość tworzenia prostych zapytań SQL na zbiorze dokumentów.
 
+\subsection{Uwierzytelnianie}
+
+Tak jak wspomniano wyżej występują dwa sposoby komunikacji klienta z serwerem. W przypadku funkcji Firebase do zapytań HTTPS z aplikacji, automatycznie są dołączane tokeny uwierzytelniania. W przypadku nasłuchiwaniu zmian zachodzących w bazie danych lub operacjach zaczytywania i modyfikowania bazy danych Firestore za proces autoryzacji dostępu są odpowiedzialne reguły bezpieczeństwa Firestore. \\
+W tym projekcie reguły bezpieczeństwa Firestore są zdefiniowane następująco:
+\begin{itemize}
+	\item w kolekcji \emph{users} użytkownik ma dostęp jedynie do dokumentu z własnym ID, na którym może wykonywać operacje czytania i modyfikacji,
+	\item w kolekcji \emph{games} użytkownik ma dostęp jedynie do dokumentu gry, w którym on sam jest jednym z graczy. W tym dokumencie będzie miał dostęp do pól zdefiniowanych w dokumencie oraz do subkolekcji \emph{playersQueue} oraz \emph{playersRacks}. Co więcej w \emph{playersRacks} będzie miał dostęp jedynie do dokumentu z własnym polem ID. We wszystkich dostępnych miejscach użytkownik ma prawo jedynie wykonywać operacje czytania.
+\end{itemize}
 
 \subsection{Funkcje}
 
-Za pomocą funkcji Firebase został zaimplementowany kod serwera naszego serwisu. Jego głównymi zadaniami jest zarządzanie instancjami gier oraz uniemożliwienie prób oszukiwania w czasie rozgrywki przez graczy za pomocą ingerencji w kod źródłowy aplikacji po stronie klienta. \\
+Za pomocą funkcji Firebase został zaimplementowany kod serwera serwisu. Jego głównymi zadaniami jest zarządzanie instancjami gier oraz uniemożliwienie prób oszukiwania w czasie rozgrywki przez graczy za pomocą ingerencji w kod źródłowy aplikacji po stronie klienta. \\
 
-Zbiór zdefiniowanych funkcji został uporządkowany w trzy podzbiory. W pierwszym podzbiorze znajdują się wszystkie możliwe do wywołania przez użytkownika funkcje serwera. Drugim podzbiorem jest klasa statycznych funkcji odpowiedzialnych za zarządzanie instancjami gier. Trzecim podzbiorem jest klasa statycznych funkcji odpowiadające za walidację ruchów użytkowników w grze i implementację logiki rozgrywki gry. \\
+Zbiór zdefiniowanych funkcji został uporządkowany w trzy podzbiory. W pierwszym podzbiorze znajdują się wszystkie możliwe do wywołania przez użytkownika funkcje serwera. Drugim podzbiorem jest klasa \emph{GameUtils}, zawierająca statyczne funkcje odpowiedzialne za zarządzanie instancjami gier. Trzecim podzbiorem jest klasa \emph{GameLogic}, zawierająca statyczne funkcje, które odpowiadają za walidację ruchów użytkowników w grze i implementację logiki rozgrywki gry. \\
 
+Charakterystyka funkcji serwera możliwych do wywołania przez użytkownika:
+\begin{itemize}
+	\item \emph{createGame} - jako paramtry wejściowe przyjmuje ID gracza i jego nazwę, listę nazw graczy zaproszonych do gry oraz czas przeznaczony na wykonanie ruchu w trakcie gry. \\
+	Wywołuje ona metodę \emph{createGame} z klasy \emph{GameUtils}. Następnie wyszukuje poszczególnych graczy i informuje ich o zaproszeniu do gry. \\
+	Parametrem zwracanym jest ID nowo utworzonej gry.
+	\item \emph{searchGame} - jako parametry wejściowe przyjmuje ustawienia gry: liczbę graczy i czas przeznaczony na ruch gracza oraz ID gracza i jego nazwę. \\ 
+	Wywołuje funkcję \emph{findGame} z \emph{GameUtils}. Jeśli gra zostanie znaleziona wywoływana jest funkcja \emph{addToGame}. Następnie jeśli gracz zajął ostatnie wolne miejsce w grze, wywoływana jest funkcja \emph{startGame} z \emph{GameUtils}. Jednak jeśli nie znaleziono gry, wywoływana jest funkcja \emph{createGame} z klasy \emph{GameUtils}.	Aby uchronić się przed wyszukiwaniem i modyfikowaniem bazy danych jednocześnie przez kilka wywołań funkcji \emph{searchGame} przez różnych graczy, proces wyszukania gry i zapisu do niej odbywa się poprzez transakcje. \\
+	Parametrem wyjściowym jest ID gry.
+	\item \emph{addToExistingGame} - jako parametry wejściowe przyjmuje ID gry oraz ID gracza i jego nazwę. \\
+	Funkcja szuka instancji gry, a następnie wywołuje \emph{addToGame} z \emph{GameUtils}. Operacje na bazie danych również odbywają się z pomocą transakcji.
+	\item \emph{startGame} - jako parametr wejściowy przyjmuje ID gry. \\
+	Wywołuje ona funkcje \emph{startGame} z \emph{GameUtils}.
+	\item \emph{putTiles} - jako parametry wejściowe przyjmuje ID gracza i gry oraz zbiór zbiorów kości znajdujących się na planszy. \\
+	Znajduję instancję gry i subkolekcje graczy uczestniczących w niej, a następnie wywołuje metodę \emph{checkTurn} z \emph{GameLogic}. Potem nadaje prawo ruchu kolejnemu graczowi w kolejce. Dalej wywołuje metodę \emph{addNewTiles} z \emph{GameLogic}. Jeśli metoda ta zwróci, że gracz jest zwycięzcą, wskazuje zwycięzcę. Jeśli zwróci, że gracz nie wykonał żadnego ruchu lub próbował oszukiwać, to doda do jego zbioru kości kolejną kość z banku. W przypadku, gdy była to ostatnia kość z banku, to wywołuje metodę \emph{pointTheWinner} z \emph{GameLogic}.
+	\item \emph{leftGame} - jako parametry wejściowe przyjmuje ID gracza i gry. \\
+	Usuwa gracza z kolejki graczy w grze. Jeśli akurat ten gracz miał prawo ruchu, daje możliwość ruchu następnemu graczowi. \\
+\end{itemize}
 
+Charakterystyka funkcji statycznych serwera z klasy \emph{GameUtils}:
+\begin{itemize}
+	\item \emph{createGame} - tworzy dokument gry w kolekcji \emph{games}. Dodaje założyciela do subkolekcji \emph{playersQueue} oraz tworzy wszystkie możliwe kości w postaci dokumentów i dodaje je do subkolekcji \emph{pool}. \\
+	Zwraca ID gry.
+	\item \emph{addToGame} - dodaje gracza do istniejącej już gry. \\
+	Zwraca ID gry oraz wartość logiczną dotyczącą występowania wolnych miejsc w grze.
+	\item \emph{findGame} -  za pomocą parametrów ustawień gry (liczba graczy, czas na ruch) szuka wolnej instancji gry. \\
+	Zwraca instancję gry lub null.
+	\item \emph{startGame} -  przydziela graczom po 14 kości losowo wybranych z subkolekcji \emph{pool}. Nadaje prawo do wykonania ruchu pierwszego graczowi w subkolekcji \emph{playersQueue}. \\
+\end{itemize}
+
+Charakterystyka funkcji statycznych serwera z klasy \emph{GameLogic}:
+\begin{itemize}
+	\item \emph{checkTurn} - sprawdza, czy dany gracz ma prawo wyłożyć kości. \\
+	
+	\item \emph{addNewTiles} - przeprowadza walidację nowego zbioru kości na planszy. Sprawdza, czy zbiory są poprawnie ułożone, czy występują wszystkie poprzednie kości na planszy, czy nowo położone kości należą do gracza. W przypadku wyłożenia początkowego sprawdza czy gracz wyłożył nowe ułożenia o wartości co najmniej 30 punktów oraz czy poprzednie ułożenie nie zostały zmodyfikowane. Po spełnieniu tych warunków usuwa nowo wyłożone kości z puli gracza i modyfikuje stan planszy. W przypadku wyłożenia początkowego odznacza, że zostało wykonane. \\
+	Zwraca informację, czy kości zostały poprawnie dodane lub informację, że gracz zwyciężył w przypadku usunięcia wszystkich kości z jego puli.
+	\item \emph{getTileFromPool} - wybiera jedną kość z subkolekcji \emph{pool} i przydziela je danemu graczowi. \\
+	Zwraca informację, czy w \emph{pool} znajdują się jeszcze dostępne kości.
+	\item \emph{pointTheWinner} -  sumuje wszystkie wartości kości w poszczególnych pulach graczy. Wskazuje zwycięzcę lub zwycięzców w przypadku równości sum. \\
+\end{itemize}
 
 \section{Klient}
 
