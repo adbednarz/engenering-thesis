@@ -1,17 +1,15 @@
 \chapter{Implementacja serwisu}
 \thispagestyle{chapterBeginStyle}
 
+Rozdział ten zawiera dokumentację techniczną projektu. Zobrazowano sposób w jaki założenia projektowe, zostały zaimplementowane przy użyciu wybranych technologii. Zgodnie ze strukturą serwisu w podrozdziale pierwszym opisano sposób implementacji serwera, a podrozdziale drugim klienta. Przedstawiona ogólna dokumentacja miała na celu bliższe zapoznanie się ze sposobem działania serwisu pod względem informatycznym.
+
 \section{Serwer}
 
-Przy implementacji serwera wykorzystano głównie trzy moduły Firebase takie jak uwierzytelnianie, firestore (baza danych NoSQL) oraz funkcje. Jako metodę rejestracji użytkownika wybrano opcję weryfikacji za pomocą adresu email. Komunikacja pomiędzy serwerem, a klientem opiera się na dwóch sposobach. Klient może bezpośrednio nasłuchiwać zmian zachodzących w bazie danych Firestore, albo wywoływać funkcje Firebase.
+Przy implementacji serwera wykorzystano głównie trzy moduły Firebase takie jak uwierzytelnianie, firestore (baza danych NoSQL) oraz funkcje. Komunikacja pomiędzy serwerem, a klientem opiera się na dwóch sposobach. Klient może bezpośrednio nasłuchiwać zmian zachodzących w bazie danych Firestore, albo wywoływać funkcje Firebase.
 
 \subsection{Baza danych}
 
-W bazie danych czasu rzeczywistego Firestore zostały umieszczone dwie kolekcje - \emph{Users}, \emph{Games}. \\
-
-W kolekcji \emph{Users} są przechowywane dokumenty indeksowane unikatowymi kodami ID użytkownika, które są przydzielane w czasie rejestracji. Każdy dokument zawiera pola \emph{name} i \emph{active}. Pole \emph{name} odnosi się do nazwy użytkownika, a pole \emph{active} jest wartością logiczną wskazującą, czy dany użytkownik jest dostępny w grze (jest zalogowany i obecnie nie znajduje się w rozgrywce z innymi graczami). Opcjonalne pole \emph{invitation} jest mapą zawierającą klucze \emph{gameId} oraz \emph{player}, których wartości wskazują kolejno na kod ID gry i nazwę gracza, który zaprosił danego gracza do swojej gry. \\
-
-W kolekcji \emph{Games} są przechowywane dokumenty indeksowane automatycznie generowanymi unikatowymi kodami ID przy tworzeniu dokumentu i które są przypisane jako kody ID gier. Każdy dokument zawiera trzy pola: \emph{available} (wskazuje ile graczy może jeszcze dołączyć do gry), \emph{currentTurn} (wskazuje jakiego gracza jest teraz kolej), \emph{size} (wskazuje na liczbę graczy w grze). Ponadto dokument danej gry zawiera jeszcze subkolekcje \emph{playersQueue}, \emph{playersRacks}, \emph{pool}, \emph{state}. \\ \\
+W bazie danych czasu rzeczywistego Firestore zostały umieszczone dwie kolekcje - \emph{Users}, \emph{Games}. W kolekcji \emph{Users} są przechowywane dokumenty indeksowane unikatowymi kodami ID użytkownika, które są przydzielane w czasie rejestracji. Każdy dokument zawiera pola \emph{name} i \emph{active}. Pole \emph{name} odnosi się do nazwy użytkownika, a pole \emph{active} jest wartością logiczną wskazującą, czy dany użytkownik jest dostępny w grze (jest zalogowany i obecnie nie znajduje się w rozgrywce z innymi graczami). Opcjonalne pole \emph{invitation} jest mapą zawierającą klucze \emph{gameId} oraz \emph{player}, których wartości wskazują kolejno na kod ID gry i nazwę gracza, który zaprosił danego gracza do swojej gry. W kolekcji \emph{Games} są przechowywane dokumenty indeksowane automatycznie generowanymi unikatowymi kodami ID przy tworzeniu dokumentu i które są przypisane jako kody ID gier. Każdy dokument zawiera trzy pola: \emph{available} (wskazuje ile graczy może jeszcze dołączyć do gry), \emph{currentTurn} (wskazuje jakiego gracza jest teraz kolej), \emph{size} (wskazuje na liczbę graczy w grze). Ponadto dokument danej gry zawiera jeszcze subkolekcje \emph{playersQueue}, \emph{playersRacks}, \emph{pool}, \emph{state}. \\ \\
 Subkolekcja \emph{playersQueue} jest to zbiór dokumentów indeksowanych kodami ID graczy, którzy uczestniczą w tej grze. Każdy dokument zawiera pole \emph{name} z nazwą gracza oraz pole \emph{initialMeld}, które wskazuje czy dany gracz wyłożył już rozdanie początkowe. \\
 Subkolekcja \emph{playersRack} to zbiór dokumentów z automatycznie generowanymi kodami ID. Dokumenty te przedstawiają kości, które są przydzielone graczowi. Każdy dokument zawiera dwa pola \emph{color} oraz \emph{number}. \\ \\
 Subkolekcja \emph{pool} to z kolei zbiór dokumentów z automatycznie generowanymi kodami ID. Zbiór tych dokumentów przedstawia bank w grze, czyli wszystkie kości, które nie znajdują się na planszy ani nie są przydzielone do gracza. Każdy dokument ma pola \emph{color} oraz \emph{number}. \\ \\
@@ -19,7 +17,7 @@ Subkolekcja \emph{state} zawiera dokładnie jeden dokument \emph{sets} o najbard
 
 \subsection{Uwierzytelnianie}
 
-Tak jak wspomniano wyżej występują dwa sposoby komunikacji klienta z serwerem. W przypadku funkcji Firebase do zapytań HTTPS z aplikacji, automatycznie są dołączane tokeny uwierzytelniania. W przypadku nasłuchiwaniu zmian zachodzących w bazie danych lub operacjach zaczytywania i modyfikowania bazy danych Firestore za proces autoryzacji dostępu są odpowiedzialne reguły bezpieczeństwa Firestore. \\
+Tak jak wspomniano wyżej występują dwa sposoby komunikacji klienta z serwerem. W przypadku funkcji Firebase do zapytań HTTPS z aplikacji, automatycznie są dołączane tokeny uwierzytelniania. W przypadku nasłuchiwaniu zmian zachodzących w bazie danych lub operacjach zaczytywania i modyfikowania bazy danych Firestore za proces autoryzacji dostępu są odpowiedzialne reguły bezpieczeństwa Firestore. \\ \\
 W tym projekcie reguły bezpieczeństwa Firestore są zdefiniowane następująco:
 \begin{itemize}
 	\item w kolekcji \emph{users} użytkownik ma dostęp jedynie do dokumentu z własnym ID, na którym może wykonywać operacje czytania i modyfikacji,
@@ -28,10 +26,8 @@ W tym projekcie reguły bezpieczeństwa Firestore są zdefiniowane następująco
 
 \subsection{Funkcje}
 
-Za pomocą funkcji Firebase został zaimplementowany kod serwera serwisu. Jego głównymi zadaniami jest zarządzanie instancjami gier oraz uniemożliwienie prób oszukiwania w czasie rozgrywki przez graczy za pomocą ingerencji w kod źródłowy aplikacji po stronie klienta. \\
-
-Zbiór zdefiniowanych funkcji został uporządkowany w trzy podzbiory. W pierwszym podzbiorze znajdują się wszystkie możliwe do wywołania przez użytkownika funkcje serwera. Drugim podzbiorem jest klasa \emph{GameUtils}, zawierająca statyczne funkcje odpowiedzialne za zarządzanie instancjami gier. Trzecim podzbiorem jest klasa \emph{GameLogic}, zawierająca statyczne funkcje, które odpowiadają za walidację ruchów użytkowników w grze i implementację logiki rozgrywki gry. \\
-
+Za pomocą funkcji Firebase został zaimplementowany kod serwera serwisu. Jego głównymi zadaniami jest zarządzanie instancjami gier oraz uniemożliwienie prób oszukiwania w czasie rozgrywki przez graczy za pomocą ingerencji w kod źródłowy aplikacji po stronie klienta. \\ \\
+Zbiór zdefiniowanych funkcji został uporządkowany w trzy podzbiory. W pierwszym podzbiorze znajdują się wszystkie możliwe do wywołania przez użytkownika funkcje serwera. Drugim podzbiorem jest klasa \emph{GameUtils}, zawierająca statyczne funkcje odpowiedzialne za zarządzanie instancjami gier. Trzecim podzbiorem jest klasa \emph{GameLogic}, zawierająca statyczne funkcje, które odpowiadają za walidację ruchów użytkowników w grze i implementację logiki rozgrywki gry. \\ \\
 Charakterystyka funkcji serwera możliwych do wywołania przez użytkownika:
 \begin{itemize}
 	\item \emph{createGame} - jako paramtry wejściowe przyjmuje ID gracza i jego nazwę, listę nazw graczy zaproszonych do gry oraz czas przeznaczony na wykonanie ruchu w trakcie gry. \\
@@ -47,7 +43,6 @@ Charakterystyka funkcji serwera możliwych do wywołania przez użytkownika:
 	\item \emph{leftGame} - jako parametry wejściowe przyjmuje ID gracza i gry. \\
 	Usuwa gracza z kolejki graczy w grze. Jeśli akurat ten gracz miał prawo ruchu, daje możliwość ruchu następnemu graczowi. \\
 \end{itemize}
-
 Charakterystyka funkcji statycznych serwera z klasy \emph{GameUtils}:
 \begin{itemize}
 	\item \emph{createGame} - tworzy dokument gry w kolekcji \emph{games}. Dodaje założyciela do subkolekcji \emph{playersQueue} oraz tworzy wszystkie możliwe kości w postaci dokumentów i dodaje je do subkolekcji \emph{pool}. \\
@@ -56,9 +51,8 @@ Charakterystyka funkcji statycznych serwera z klasy \emph{GameUtils}:
 	Zwraca ID gry oraz wartość logiczną dotyczącą występowania wolnych miejsc w grze.
 	\item \emph{findGame} -  za pomocą parametrów ustawień gry (liczba graczy, czas na ruch) szuka wolnej instancji gry. \\
 	Zwraca instancję gry lub null.
-	\item \emph{startGame} -  przydziela graczom po 14 kości losowo wybranych z subkolekcji \emph{pool}. Nadaje prawo do wykonania ruchu pierwszego graczowi w subkolekcji \emph{playersQueue}. \\
+	\item \emph{startGame} -  przydziela graczom po 14 kości losowo wybranych z subkolekcji \emph{pool}. Nadaje prawo do wykonania ruchu pierwszego graczowi w subkolekcji \emph{playersQueue}. \\ 
 \end{itemize}
-
 Charakterystyka funkcji statycznych serwera z klasy \emph{GameLogic}:
 \begin{itemize}
 	\item \emph{checkTurn} - sprawdza, czy dany gracz ma prawo wyłożyć kości.
@@ -66,7 +60,7 @@ Charakterystyka funkcji statycznych serwera z klasy \emph{GameLogic}:
 	Zwraca informację, czy kości zostały poprawnie dodane lub informację, że gracz zwyciężył w przypadku usunięcia wszystkich kości z jego puli.
 	\item \emph{getTileFromPool} - wybiera jedną kość z subkolekcji \emph{pool} i przydziela je danemu graczowi. \\
 	Zwraca informację, czy w \emph{pool} znajdują się jeszcze dostępne kości.
-	\item \emph{pointTheWinner} -  sumuje wszystkie wartości kości w poszczególnych pulach graczy. Wskazuje zwycięzcę lub zwycięzców w przypadku równości sum. \\
+	\item \emph{pointTheWinner} -  sumuje wszystkie wartości kości w poszczególnych pulach graczy. Wskazuje zwycięzcę lub zwycięzców w przypadku równości sum.
 \end{itemize}
 
 \section{Klient}
@@ -78,7 +72,7 @@ Warstwa klienta w serwisie napisana we Flutterze jest dostępna jako aplikacja n
 W warstwie prezentacji zdefiniowany jest wygląd aplikacji klienta. Warstwa ta składa się z bezstanowych widgetów, które generują interfejs graficzny. Klasy te odpowiadają za odbieranie
 komunikatów ze strony użytkownika jak i przekazują lub odbierają komunikaty ze strony logiki aplikacji. Zdarzenia te mogą mieć wpływ na wygląd danego widgeta. Komunikacja pomiędzy poszczególnymi stronami aplikacji jest również zdefiniowana w tej warstwie. \\
 
-Nawigacja pomiędzy stronami odbywa się poprzez dynamiczną nawigacją z wygenerowanymi trasami. Jest to jeden ze sposobów komunikacji we Flutterze, dzięki któremu za cały proces nawigacji odpowiada klasa \emph{app\_router}, a w poszczególnych widgetach podaje się nazwę ścieżki i obiekty do przekazania pomiędzy stronami. Główną zaletą korzystania z tego sposobu jest eliminacja bezpośrednich zależności pomiędzy widgetami. Ponadto zmniejsza się objętość kodu, a sam kod staje się bardziej przejrzysty.
+Nawigacja pomiędzy stronami odbywa się poprzez dynamiczną nawigacją z wygenerowanymi trasami. Jest to jeden ze sposobów komunikacji we Flutterze, dzięki któremu za cały proces nawigacji odpowiada klasa \emph{app\_router}, a w poszczególnych widgetach podaje się nazwę ścieżki i obiekty do przekazania pomiędzy stronami. Główną zaletą korzystania z tego sposobu jest eliminacja bezpośrednich zależności pomiędzy widgetami. Ponadto zmniejsza się objętość kodu, a sam kod staje się bardziej przejrzysty. \\
 
 \begin{figure}[h!]
 	\begin{center}
@@ -89,7 +83,6 @@ Nawigacja pomiędzy stronami odbywa się poprzez dynamiczną nawigacją z wygene
 \end{figure}  
 
 \emph{HomeScreen} jest ekranem startowym aplikacji, od którego zaczyna się każda inna ścieżka. W programie można podążyć dwoma głównymi ścieżkami. Pierwszą ścieżką jest wybranie gry z botem lokalnie na urządzeniu użytkownika bez konieczności połączenia z internetem. Następnie wybraniu ustawień bota i kolejno ustawień gry i przejściu do rozgrywki. Po wyjściu z gry użytkownik wraca do ekranu startowego. Drugą ścieżką jest z kolei zalogowanie się lub utworzenie konta gracza. Następnie użytkownik będzie miał do wyboru sposób rozpoczęcia gry. Jeśli zdecyduje się na utworzenie własnej gry z innymi aktywnymi użytkownikami, przechodzi do strony \emph{ActivePlayersScreen}, a dalej do ustawień gry. Jeśli jednak będzie chciał dołączyć do istniejącej już gry, aplikacja przekierowuje go bezpośrednio do \emph{GameSettingsScreen}. Po przejściu do rozgrywki gracz w każdej chili może opuścić grę. W takim przypadku znajdzie się z powrotem w \emph{GameScreen}. Z którego również może nastąpić wylogowanie się użytkownika i powrót do ekranu startowego. \\ \\ 
-
 Charakterystyka poszczególnych klas w warstwie prezentacji:
 \begin{itemize}
 	\item \emph{AppRouter} - klasa odpowiadająca za nawigację w aplikacji. Zawiera zdefiniowane ścieżki, które wskazują na poszczególne strony. Jest odpowiedzialna za tworzenie nowego ekranu i dołączanie do niego odpowiednich zależności i przekazywanych parametrów.
@@ -105,20 +98,78 @@ Charakterystyka poszczególnych klas w warstwie prezentacji:
 
 \subsection{Warstwa logiki}
 
-W warstwie logiki zdefiniowane są zasady działania aplikacji. Z racji wykorzystanego wzorca projektowego we Flutterze klasy te są w postaci cubitów. Instancje tych klas są tworzone w klasie \emph{AppRouter} i odpowiednio są powiązane z klasami w warstwie prezentacji. Do każdego cubita przypisany jest zbiór klas, które reprezentują poszczególne stany. Klasy stanowe są przekazywane za pomocą strumienia do odpowiednich klas w warstwie prezentacji. \\
-
+W warstwie logiki zdefiniowane są zasady działania aplikacji. Z racji wykorzystanego wzorca projektowego we Flutterze klasy te są w postaci cubitów. Instancje tych klas są tworzone w klasie \emph{AppRouter} i odpowiednio są powiązane z klasami w warstwie prezentacji. Do każdego cubita przypisany jest zbiór klas, które reprezentują poszczególne stany. Klasy stanowe są przekazywane za pomocą strumienia do odpowiednich klas w warstwie prezentacji. \\ \\
 Charakterystyka poszczególnych cubitów:
 \begin{itemize}
-	\item \emph{AuthCubit} -
-	\item \emph{GameSettingsCubit} -
-	\item \emph{ActivePlayersCubit} -
-	\item \emph{GameActionPanelCubit} -
-	\item \emph{GameActionBoardCubit} -
-	\item \emph{GameActionRackCubit} -
+	\item \emph{AuthCubit} - klasa ta jest powiązana z czynnościami dotyczącymi bezpośrednio konta użytkownika. Przeprowadza rejestrację, logowanie i wylogowanie gracza. Ponadto powiadamia użytkownika, gdy ten zostanie zaproszony do gry przez innego gracza i w przypadku akceptacji dołącza go do gry.
+	\item \emph{GameSettingsCubit} - klasa odpowiadająca za konfigurację gry. Zawiera stan zawierający wybrane ustawienia gry. Odpowiada również za proces dołączania do gry (wyszukanie gry lub jej stworzenie oraz oczekiwanie na pozostałych graczy).
+	\item \emph{ActivePlayersCubit} - klasa pobiera aktywnych użytkowników i odpowiednio je filtruje na podstawie podanej przez użytkownika wartości. Zawiera stan wskazujący na obecnie wybranych graczy.
+	\item \emph{GameActionPanelCubit} - klasa zarządzająca rozgrywką. Przechowuje stan, który zawiera listę uczestników oraz pozostały czas na ruch obecnie grającego. Zarządza kolejką graczy, jak również informuje o wyniku końcowym gry. Ponadto umożliwia użytkownikowi opuszczenie rozgrywki przed zakończeniem.
+	\item \emph{GameActionBoardCubit} - klasa odpowiadająca za planszę gry. Stan klasy zawiera listę obecnie ułożonych zestawów kości na planszy. Cubit ten odpowiada za aktualizowanie planszy w przypadku wyłożeń gracza lub innych graczy. W przypadku wyłożeń użytkownika przeprowadza walidację oraz zgodność z regułami gry i odpowiednio modyfikuje stan planszy.
+	\item \emph{GameActionRackCubit} - klasa zawierająca stan, który przechowuje kości użytkownika. Jest odpowiedzialna za modyfikację tego stanu w przypadku wyłożeń użytkownika lub gdy użytkownik dostaje kość z banku.
 \end{itemize}
 
 \subsection{Warstwa danych}
 
+Warstwa danych składa się z dwóch interfejsów \emph{AuthRepository} oraz \emph{GameRepository}. Pierwszy interfejs odpowiada za zarządzanie kontem użytkownika, a drugi instancją gry. W aplikacji obecnie zaimplementowane są dwa rozwiązania będące warstwą danych: firebase, bot. \\ \\
+Charakterystyka interfejsu \emph{AuthRepository}:
+
+\begin{itemize}
+	\item \emph{signUp} - metoda asynchroniczna, która jako parametry wejściowe przyjmuje email, nazwę oraz hasło użytkownika. Odpowiada za zarejestrowanie się do serwisu. Zwraca klasę \emph{Player}, która zawiera nazwę i ID gracza.
+	\item \emph{logIn} - metoda asynchroniczna, która jako parametry wejściowe przyjmuje email oraz hasło użytkownika. Odpowiada za zalogowanie się do serwisu. Zwraca klasę \emph{Player}, która zawiera nazwę i ID gracza.
+	\item \emph{logOut} - metoda asynchroniczna, która jako parametry wejściowe przyjmuje ID gracza. Odpowiada za wylogowanie się z serwisu.
+	\item \emph{invitationToGame} - metoda, która jako parametry wejściowe przyjmuje ID użytkownika. Zwraca strumień, przez którego będą wysyłane zaproszenia do gry.
+	\item \emph{activePlayers} - metoda, która jako parametry wejściowe przyjmuje ID użytkownika. Zwraca strumień, przez którego będą wysyłani obecnie aktywni gracze. \\
+\end{itemize}
+Charakterystyka interfejsu \emph{GameRepository}:
+
+\begin{itemize}
+	\item \emph{createGame} - metoda asynchroniczna, która jako parametry wejściowe przyjmuje ID gracza, listę nazw zaproszonych graczy oraz czas przeznaczony na ruch w grze. Jest wywoływana w momencie, gry gracz tworzy własną grę i zaprasza innych graczy. Zwraca ID nowo utworzonej gry.
+	\item \emph{searchGame} - metoda asynchroniczna, która jako parametry wejściowe przyjmuje ID gracza, liczbę graczy w grze oraz czas przeznaczony na ruch w grze. Jest wywoływana w momencie, gdy gracz chce znaleźć grę o podanych parametrach. Zwraca ID znalezionej gry lub w przypadku jej braku zwraca ID nowo utworzonej gry.
+	\item \emph{joinGame} - metoda asynchroniczna, która jako parametry wejściowe przyjmuje wartość logiczną wskazującą na dołączenie do rozgrywki oraz ID gry. Jest wywoływana w momencie, gry gracz otrzymał zaproszenie do gry.
+	\item \emph{missingPlayers} - metoda, która jako parametry wejściowe przyjmuje ID gry. Zwraca strumień, przez którego będzie wysyłana liczba brakujących graczy do rozpoczęcia rozgrywki.
+	\item \emph{playerTiles} - metoda, która jako parametry wejściowe przyjmuje ID użytkownika oraz ID gry. Zwraca strumień, przez którego będą wysyłane kości należące do gracza.
+	\item \emph{playersQueue} - metoda, która jako parametry wejściowe przyjmuje ID gry. Zwraca strumień, przez którego będą wysyłani gracze uczestniczący w grze.
+	\item \emph{gameStatus} - metoda, która jako parametry wejściowe przyjmuje ID gry. Zwraca strumień, przez którego będzie wysyłany aktualny stan gry, czyli gracz mający ruch, czas przeznaczony na ruch oraz zwycięzca gry.
+	\item \emph{tilesSets} - metoda, która jako parametry wejściowe przyjmuje ID gry. Zwraca strumień, przez którego będą wysyłane zbiory kości znajdujące się na planszy.
+	\item \emph{putTiles} - metoda asynchroniczna, która jako parametry wejściowe przyjmuje ID gry oraz zbiory kości znajdujące się na planszy. Odpowiada za przekazanie wykonanego ruchu gracza.
+	\item \emph{leaveGame} - metoda asynchroniczna, która jako parametry wejściowe przyjmuje ID gry, ID użytkownika. Obsługuje wyjście gracza z rozgrywki.	\\
+\end{itemize}
+W przypadku firebase zdefiniowane są dwie klasy \emph{AuthFirebase} oraz \emph{GameFirebase}, które implementują odpowiednie interfejsy. Klasy te są odpowiedzialne za komunikację z platformą Firebase. \\
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=16cm,height=6cm]{img/firebase-client.png}
+	\end{center}
+	\caption{{\color{dgray}Diagram klas warstwy danych firebase.}} 
+	\label{firebase}
+\end{figure}  
+Klasa \emph{AuthFirebase} jest w relacji z klasą \emph{AuthenticationProvider} w postaci agregacji całkowitej (kompozycji). Oznacza to, że klasa główna (\emph{AuthFirebase}) ma na własność klasę częściową (\emph{AuthenticationProvider}) i kontroluje cykl życia części. Natomiast pomiędzy \emph{AuthFirebase}, a \emph{FirestoreProvider} występuje relacja agregacji częściowej. To znaczy, że element częściowy (\emph{FirestoreProvider}) należy do elementu głównego (\emph{AuthFirebase}), ale nie jest od niego zależny. Usunięcie elementu głównego, nie wpłynie na element częściowy. W przypadku \emph{GameFirebase} występuje ona w relacji częściowej z \emph{FirestoreProvider}, a w relacji agregacji całkowitej z \emph{FirestoreProvider}. Zatem z klasy \emph{FirestoreProvider} korzysta się w obu klasach implementujących interfejsy warstwy danych. \\ 
+Klasa \emph{AuthenticationProvider} odpowiada za połączenie się z usługą \emph{Firebase Authentication} i przeprowadzanie operacji zarejestrowania, zalogowania i wylogowania użytkownika. \\
+Klasa \emph{FirestoreProvider} odpowiada za połączenie się z usługą \emph{Firebase Firestore} (baza danych czasu rzeczywistnego). Klasa ta czyta lub zapisuje dane do bazy danych. Ponadto tworzy strumienie, które nasłuchują zmiany zachodzące w wybranych miejscach w bazie danych. \\
+Klasa \emph{FunctionsProvider} odpowiada za połączenie się z usługą \emph{Firebase Functions}. Wywołuje dedykowane funkcje po stronie serwera. \\
+W przypadku bota zdefiniowana jest jedna klasa \emph{GameBot}, która implementuje interfejs \emph{GameRepository}. Klasa ta zarządza instancją gry, która jest tworzona lokalnie na urządzeniu użytkownika. Biorąc pod uwagę rozwiązanie w postaci bota, konto użytkownika nie jest w użyciu. 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=8cm,height=9cm]{img/bot-client.png}
+	\end{center}
+	\caption{{\color{dgray}Diagram klas warstwy danych bot.}} 
+	\label{bot}
+\end{figure}
+
+Klasa \emph{GameBot} występuje w relacji agregacji całkowitej z klasami \emph{Game} oraz \emph{BotEngine}. Klasa główna może zawierać od 1 do 3 instancji klasy \emph{BotEngine}. To ograniczenie wzięło się z zasady, że w grę Rummikub może grać od 2 do 4 graczy. Klasy \emph{BasicBot} i \emph{AdvancedBot} dziedziczą po klasie \emph{BotEngine}. \\
+Klasa \emph{Game} jest instancją gry. Tworzy wszystkie możliwe kości w grze i losowo przydziela każdemu uczestnikowi. Przechowuje w sobie listę dostępnych kości do rozdania, listę kości przypisanych każdemu graczowi oraz zbiór zestawów kości, które są obecnie na planszy. \\
+Klasa \emph{BotEngine} ma na celu imitować prawdziwego gracza. Analizuje obecny układ kości na plaszy oraz swoje własne kości i na tej podstawie wykonuje wyłożenie. Klasy \emph{BasicBot} oraz \emph{AdvancedBot} różnią się zaimplementowanym algorytmem wykonującym ruch. Algorytmy te wraz z opisem złożoności gry są przedstawione w następnym rozdziale.
+
 \subsection{Przepływ zdarzeń}
 
+W poprzednich podrozdziałach przedstawiono opisy poszczególnych warstw. W ostatnim podrozdziale zostały ukazane przepływy zdarzeń pomiędzy warstwami, aby zobrazować mechanikę działania systemu. Do przedstawienia graficznego wykorzystano diagramy sekwencji w notacji UML.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=16cm,height=12cm]{img/diagram-sekwencji-auth.png}
+	\end{center}
+	\caption{{\color{dgray}Diagram sekwencji AuthCubit.}} 
+	\label{AuthCubit}
+\end{figure}  
 

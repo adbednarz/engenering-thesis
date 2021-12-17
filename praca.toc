@@ -22,15 +22,15 @@
 \contentsline {subsection}{\numberline {4.1.1}Baza danych}{11}{subsection.4.1.1}%
 \contentsline {subsection}{\numberline {4.1.2}Uwierzytelnianie}{12}{subsection.4.1.2}%
 \contentsline {subsection}{\numberline {4.1.3}Funkcje}{12}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Klient}{13}{section.4.2}%
+\contentsline {section}{\numberline {4.2}Klient}{14}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Warstwa prezentacji}{14}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Warstwa logiki}{15}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Warstwa danych}{16}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Przepływ zdarzeń}{16}{subsection.4.2.4}%
-\contentsline {chapter}{\numberline {5}Bot}{17}{chapter.5}%
-\contentsline {subsection}{\numberline {5.0.1}Struktura}{17}{subsection.5.0.1}%
-\contentsline {subsection}{\numberline {5.0.2}Podstawowy}{17}{subsection.5.0.2}%
-\contentsline {subsection}{\numberline {5.0.3}Zaawansowany}{17}{subsection.5.0.3}%
-\contentsline {chapter}{Podsumowanie}{19}{chapter*.5}%
-\contentsline {chapter}{Bibliografia}{21}{chapter*.6}%
-\contentsline {chapter}{\numberline {A}Zawartość płyty CD}{23}{appendix.A}%
+\contentsline {subsection}{\numberline {4.2.4}Przepływ zdarzeń}{19}{subsection.4.2.4}%
+\contentsline {chapter}{\numberline {5}Bot}{21}{chapter.5}%
+\contentsline {subsection}{\numberline {5.0.1}Złożoność gry}{21}{subsection.5.0.1}%
+\contentsline {subsection}{\numberline {5.0.2}Podstawowy}{21}{subsection.5.0.2}%
+\contentsline {subsection}{\numberline {5.0.3}Zaawansowany}{21}{subsection.5.0.3}%
+\contentsline {chapter}{Podsumowanie}{23}{chapter*.8}%
+\contentsline {chapter}{Bibliografia}{25}{chapter*.9}%
+\contentsline {chapter}{\numberline {A}Zawartość płyty CD}{27}{appendix.A}%
