@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  17 DEC 2021 02:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  18 DEC 2021 01:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1226,80 +1226,273 @@ File: img/wit-logo.png Graphic file (type png)
 Package pdftex.def Info: img/wit-logo.png  used on input line 167.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
  [18 <./img/bot-client.png>]
-<img/diagram-sekwencji-auth.png, id=301, 724.7075pt x 643.40375pt>
+<img/diagram-sekwencji-auth.png, id=301, 763.85374pt x 684.5575pt>
 File: img/diagram-sekwencji-auth.png Graphic file (type png)
 <use img/diagram-sekwencji-auth.png>
 Package pdftex.def Info: img/diagram-sekwencji-auth.png  used on input line 170
 .
-(pdftex.def)             Requested size: 455.25223pt x 341.44415pt.
+(pdftex.def)             Requested size: 455.23874pt x 341.44226pt.
+<img/diagram-sekwencji-activePlayers.png, id=302, 623.32875pt x 653.44125pt>
+File: img/diagram-sekwencji-activePlayers.png Graphic file (type png)
+<use img/diagram-sekwencji-activePlayers.png>
+Package pdftex.def Info: img/diagram-sekwencji-activePlayers.png  used on input
+ line 180.
+(pdftex.def)             Requested size: 398.33934pt x 341.42659pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+
+ []
+
+File: img/pwr-logo.png Graphic file (type png)
+<use img/pwr-logo.png>
+Package pdftex.def Info: img/pwr-logo.png  used on input line 187.
+(pdftex.def)             Requested size: 22.89163pt x 22.7839pt.
+[19 <./img/diagram-sekwencji-auth.png>]
+<img/diagram-sekwencji-gameSettings.png, id=310, 623.32875pt x 502.87875pt>
+File: img/diagram-sekwencji-gameSettings.png Graphic file (type png)
+<use img/diagram-sekwencji-gameSettings.png>
+Package pdftex.def Info: img/diagram-sekwencji-gameSettings.png  used on input 
+line 190.
+(pdftex.def)             Requested size: 398.33934pt x 369.88383pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+File: img/wit-logo.png Graphic file (type png)
+<use img/wit-logo.png>
+Package pdftex.def Info: img/wit-logo.png  used on input line 197.
+(pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
+[20 <./img/diagram-sekwencji-activePlayers.png>]
+<img/diagram-sekwencji-panel.png, id=317, 626.34pt x 643.40375pt>
+File: img/diagram-sekwencji-panel.png Graphic file (type png)
+<use img/diagram-sekwencji-panel.png>
+Package pdftex.def Info: img/diagram-sekwencji-panel.png  used on input line 20
+0.
+(pdftex.def)             Requested size: 398.35225pt x 369.89537pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \vbox (badness 1400) has occurred while \output is active []
+
+File: img/pwr-logo.png Graphic file (type png)
+<use img/pwr-logo.png>
+Package pdftex.def Info: img/pwr-logo.png  used on input line 207.
+(pdftex.def)             Requested size: 22.89163pt x 22.7839pt.
+ [21 <./img/diagram-sekwencji-gameSettings.png>]
+<img/diagram-sekwencji-board.png, id=324, 624.3325pt x 723.70375pt>
+File: img/diagram-sekwencji-board.png Graphic file (type png)
+<use img/diagram-sekwencji-board.png>
+Package pdftex.def Info: img/diagram-sekwencji-board.png  used on input line 21
+0.
+(pdftex.def)             Requested size: 398.34251pt x 369.89015pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+
+ []
+
+
+Underfull \vbox (badness 1389) has occurred while \output is active []
+
+File: img/wit-logo.png Graphic file (type png)
+<use img/wit-logo.png>
+Package pdftex.def Info: img/wit-logo.png  used on input line 217.
+(pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
+ [22 <./img/diagram-sekwencji-panel.png>]
+<img/diagram-sekwencji-rack.png, id=331, 623.32875pt x 502.87875pt>
+File: img/diagram-sekwencji-rack.png Graphic file (type png)
+<use img/diagram-sekwencji-rack.png>
+Package pdftex.def Info: img/diagram-sekwencji-rack.png  used on input line 220
+.
+(pdftex.def)             Requested size: 369.89128pt x 284.52603pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 )
+Underfull \vbox (badness 1394) has occurred while \output is active []
+
 File: img/pwr-logo.png Graphic file (type png)
 <use img/pwr-logo.png>
 Package pdftex.def Info: img/pwr-logo.png  used on input line 717.
 (pdftex.def)             Requested size: 22.89163pt x 22.7839pt.
- [19 <./img/diagram-sekwencji-auth.png>]
+ [23 <./img/diagram-sekwencji-board.png>]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 717.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [20
-
-] (rozdzial5.tex
+ [24 <./img/diagram-sekwencji-rack.png>]
+(rozdzial5.tex
 Rozdzia\l  5.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 6.
 
-) [21
+) [25
+
 
 ]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 720.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [22
+ [26
 
-] (podsumowanie.tex) [23
+] (podsumowanie.tex) [27
 
 ]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 723.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [24
+ [28
 
-] (praca.bbl) [25
+] (praca.bbl) [29
 
 ]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 735.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [26
+ [30
 
 ] (dodatek1.tex
 Załącznik A.
-) [27
+) [31
 
 ]
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 747.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [28
+ [32
 
 ] (praca.aux)
 Package rerunfilecheck Info: File `praca.out' has not changed.
-(rerunfilecheck)             Checksum: DFC6A521A9459EBC5D28656036DF22BE;4021.
+(rerunfilecheck)             Checksum: F9B63CED2CA1A54469F288D0AF7932D2;4023.
  ) 
 Here is how much of TeX's memory you used:
- 18811 strings out of 478659
- 306238 string characters out of 2846394
- 641977 words of memory out of 3000000
- 36449 multiletter control sequences out of 15000+600000
+ 18860 strings out of 478659
+ 307775 string characters out of 2846394
+ 642425 words of memory out of 3000000
+ 36484 multiletter control sequences out of 15000+600000
  460219 words of font info for 64 fonts, out of 8000000 for 9000
  1180 hyphenation exceptions out of 8191
- 60i,18n,71p,1344b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,18n,71p,1736b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:
 /Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Use
 rs/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rmsc.enc}<C:/Users/
@@ -1310,9 +1503,9 @@ am/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Adam
 /AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Adam/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/Adam/AppD
 ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb>
-Output written on praca.pdf (34 pages, 437907 bytes).
+Output written on praca.pdf (38 pages, 552971 bytes).
 PDF statistics:
- 404 PDF objects out of 1000 (max. 8388607)
- 78 named destinations out of 1000 (max. 500000)
- 313 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 440 PDF objects out of 1000 (max. 8388607)
+ 87 named destinations out of 1000 (max. 500000)
+ 338 words of extra memory for PDF output out of 10000 (max. 10000000)
 

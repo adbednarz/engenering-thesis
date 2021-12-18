@@ -27,10 +27,10 @@
 \contentsline {subsection}{\numberline {4.2.2}Warstwa logiki}{15}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Warstwa danych}{16}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}Przepływ zdarzeń}{19}{subsection.4.2.4}%
-\contentsline {chapter}{\numberline {5}Bot}{21}{chapter.5}%
-\contentsline {subsection}{\numberline {5.0.1}Złożoność gry}{21}{subsection.5.0.1}%
-\contentsline {subsection}{\numberline {5.0.2}Podstawowy}{21}{subsection.5.0.2}%
-\contentsline {subsection}{\numberline {5.0.3}Zaawansowany}{21}{subsection.5.0.3}%
-\contentsline {chapter}{Podsumowanie}{23}{chapter*.8}%
-\contentsline {chapter}{Bibliografia}{25}{chapter*.9}%
-\contentsline {chapter}{\numberline {A}Zawartość płyty CD}{27}{appendix.A}%
+\contentsline {chapter}{\numberline {5}Bot}{25}{chapter.5}%
+\contentsline {subsection}{\numberline {5.0.1}Złożoność gry}{25}{subsection.5.0.1}%
+\contentsline {subsection}{\numberline {5.0.2}Podstawowy}{25}{subsection.5.0.2}%
+\contentsline {subsection}{\numberline {5.0.3}Zaawansowany}{25}{subsection.5.0.3}%
+\contentsline {chapter}{Podsumowanie}{27}{chapter*.13}%
+\contentsline {chapter}{Bibliografia}{29}{chapter*.14}%
+\contentsline {chapter}{\numberline {A}Zawartość płyty CD}{31}{appendix.A}%

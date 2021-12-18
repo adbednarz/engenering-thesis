@@ -163,13 +163,64 @@ Klasa \emph{BotEngine} ma na celu imitować prawdziwego gracza. Analizuje obecny
 
 \subsection{Przepływ zdarzeń}
 
-W poprzednich podrozdziałach przedstawiono opisy poszczególnych warstw. W ostatnim podrozdziale zostały ukazane przepływy zdarzeń pomiędzy warstwami, aby zobrazować mechanikę działania systemu. Do przedstawienia graficznego wykorzystano diagramy sekwencji w notacji UML.
+W poprzednich podrozdziałach przedstawiono opisy poszczególnych warstw. Ostatni podrozdział dotyczy przepływów zdarzeń pomiędzy warstwami, aby zobrazować mechanikę działania systemu. Do przedstawienia graficznego wykorzystano diagramy sekwencji w notacji UML. Dla czytelności diagramów metody są zapisywane bez podawania ich parametrów. W interakcjach również nie uwzględniono obsługi wyjątków. Bardziej szczegółowe opisy znajdują się poniżej każdego diagramu.
 
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=16cm,height=12cm]{img/diagram-sekwencji-auth.png}
 	\end{center}
-	\caption{{\color{dgray}Diagram sekwencji AuthCubit.}} 
+	\caption{{\color{dgray}Diagram sekwencji obsługi konta użytkownika.}} 
 	\label{AuthCubit}
-\end{figure}  
+\end{figure}
 
+Powyższy diagram przedstawia interakcje pomiędzy warstwami, które są związane z klasą \emph{AuthCubit}. Klasa ta po stronie warstwy prezentacji komunikuje się z klasami \emph{RegistrationScreen}, \emph{LoginScreen} oraz \emph{GameScreen}. W przypadku rejestracji lub logowania klasa \emph{AuthCubit} jest pośrednikiem między warstwą prezentacji, a warstwą danych. Wywołuje asynchroniczą metodę \emph{login} z parametrami email oraz hasło, lub metodę \emph{register} (rozszerzona o dodatkowy parametr: nazwa użytkownika). Z warstwy prezentacji w odpowiedzi dostajemy obiekt \emph{Player}, który zawiera dwa atrybuty: ID gracza oraz jego nazwa. Następnie \emph{AuthCubit} przesyła strumieniem klasę stanu \emph{AuthLogged}, która zawiera otrzymany obiekt. \emph{LoginScreen} bądź \emph{RegistrationScreen} po otrzymaniu tego stanu, nawigują do strony \emph{GameScreen}, przekazując refernecję do \emph{AuthCubit} oraz parametry gracza. Ponadto po zalogowaniu / zarejestrowaniu użytkownika klasa \emph{AuthCubit} pobiera obiekt listenera z \emph{AuthFirebase}, za pomocą którego będzie nasłuchiwać pojawiające się zaproszenia innych użytkowników do rozgrywki. W przypadku interakcji \emph{GameScreen} z \emph{AuthCubit} występują dwa od siebie niezależne procesy. Pierwszy z nich polega na obsłudze wylogowania użytkownika. Natomiast drugi odpowiada za obsługę zaproszeń do gry. \emph{AuthCubit} po otrzymaniu komunikatu ze strumienia o zaproszeniu, emituję klasę stanu \emph{AuthInvited}, która zawiera nazwę zapraszającego i kod ID gry. W przypadku gdy gracz odmówi udziału, zostanie przekazana metoda \emph{acceptInvitation(false)}.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=14cm,height=12cm]{img/diagram-sekwencji-activePlayers.png}
+	\end{center}
+	\caption{{\color{dgray}Diagram sekwencji wyszukiwania aktywnych użytkowników.}} 
+	\label{ActivePlayersCubit}
+\end{figure}
+
+Proces na rysunku 4.5 rozpoczyna się pobraniem strumienia z \emph{AuthFirebase}, dzięki któremu można otrzymywać aktualną listę aktywnych użytkowników w grze. Za każdym razem, gdy lista użytkowników ulegnie zmianie, będzie przekazywana do \emph{ActivePlayersScreen} klasa stanu \emph{ActivePlayersChanged}. Klasa ta zawiera w sobie aktualną listę aktywnych użytkowników, ale również zawiera listę dotychczas wybranych przez użytkownika graczy. Następnie występują trzy możliwe procesy, które odpowiadają działaniom użytkownika. W momencie, gdy gracz wybiera kogoś z listy, przekazywana jest nazwa wybranego gracza do \emph{ActivePlayersCubit} i zwracana jest zaktualizowana klasa stanu \emph{ActivePlayersChanged}. Użytkownik może również wyszukiwać gracza po nazwie. W tym przypadku za każdym razem zwracana jest klasa stanu, w której lista użytkowników jest odpowiednio przefiltrowana. Ostatnią możliwością jest zatwierdzenie wyboru. W takim przypadku do \emph{ActivePlayersScreen} jest przekazywana ostateczna lista wybranych graczy do zaproszenia. \vspace{4cm} \\
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=14cm,height=13cm]{img/diagram-sekwencji-gameSettings.png}
+	\end{center}
+	\caption{{\color{dgray}Diagram sekwencji konfiguracji gry.}} 
+	\label{GameSettingsCubit}
+\end{figure} 
+
+Dwa początkowe procesy ukazane na diagramie zależą od tego z jakimi parametrami została utworzona klasa \emph{GameSettingsCubit}. W przypadku, gdy gracz szuka gry do dołączenia może odpowiednio skonfigurować ustawienia gry, zmieniając liczbę graczy oraz czas przeznaczony na  wykonanie ruchu. Jeśli jednak gracz wybrał opcję stworzenia własnej gry z wybranymi graczami, może jedynie zmienić czas przeznaczony na ruch. Klasa stanu \emph{GameSettingsChanged} zawiera aktualnie wybrane ustawienia. Gdy użytkownik potwierdzi ustawienia za pośrednictwem \emph{GameSettingsCubit} w \emph{GameFirebase} jest wywoływana metoda \emph{createGame} (parametry: kod ID gracza, lista nazw zaproszonych graczy, czas przeznaczony na ruch w grze) lub metoda \emph{searchGame} (parametry: kod ID gracza, liczba graczy w grze, czas przeznaczony na ruch w grze). \emph{GameSettingsScreen} po otrzymaniu eventu \emph{Loading}, zastępuję dotychczasowy widok obracającym się kółeczkiem. W ostatnim procesie metoda \emph{missingPlayers} z parametrem ID gry, zwraca strumień, który powiadamia o dołączających graczach do gry. Klasa stanu \emph{Waiting} zawiera liczbę brakujących graczy do rozpoczęcia gry. Klasa \emph{GameFound} zawiera ID gry i wskazuje, że gra jest już gotowa do rozpoczęcia. W przypadku, gdy gracz przyjął zaproszenie do gry wykona się jedynie ostatni proces z pominięciem dwóch pierwszych, ponieważ gracz nie ma już wpływu na ustawienia gry. \\ \\ \\ \\ \\
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=14cm,height=13cm]{img/diagram-sekwencji-panel.png}
+	\end{center}
+	\caption{{\color{dgray}Diagram sekwencji panelu sterowania gry.}} 
+	\label{GameActionPanelCubit}
+\end{figure} 
+
+Klasa \emph{GameActionPanelCubit} jest odpowiedzialna za zarządzanie stanem gry. Korzysta z dwóch strumieni danych. Strumień \emph{playersQueue} przekazuje aktualną listę uczestników gry, a \emph{gameStatus} wskazuje, jaki gracz ma obecnie prawo ruchu oraz czy pojawił się już zwycięzca gry. Informacje te są przekazywane do \emph{GameActionScreen}. Klasa stanu \emph{CurrentPlayersQueue} zawiera listę uczestników w grze oraz czas, który pozostał dla gracza mającego prawo ruchu. Kolejny proces przedstawia sytuację, gdy użytkownik wykonał wyłożenie kości. Wtedy informuje o tym \emph{GameActionPanelCubit}, które zeruje i przestaje odliczać czas jego ruchu. Ostatni proces dotyczy zdarzenia, gdy użytkownik zamierza opuścić grę przed jej zakończeniem. Cubit wywołuje metodę \emph{leaveGame} z parametrami: ID gracza oraz ID gry. \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=14cm,height=13cm]{img/diagram-sekwencji-board.png}
+	\end{center}
+	\caption{{\color{dgray}Diagram sekwencji planszy rozgrywki.}} 
+	\label{GameActionBoardCubit}
+\end{figure} 
+
+Klasa \emph{GameActionBoardCubit} jest odpowiedzialna za zarządzanie planszą gry. Pobiera strumień z \emph{GameFirebase}, który będzie przekazywał modyfikacje planszy przeprowadzone przez innych użytkowników. Klasa stanu \emph{BoardChanged} zawiera listę zbiorów kości. Następnie są obsługiwane dwa procesy dotyczące planszy. Proces pierwszy aktualizuje stan planszy za każdym razem, gdy gracz dokona modyfikacji pod warunkiem, że ma prawo ruchu. Modyfikacje mogą odbywać się trzema sposobami: \emph{addNewSet} dodanie kości do planszy tworzy nowy zbiór, \emph{combineTwoSet} dodanie kości łączy dwa zbiory, \emph{addToExistingSet} kość jest dodwana do istniejącego zbioru. Drugi proces następuje, gdy gracz chce zatwierdzić swoje zmiany przeprowadzone na planszy. W takim przypadku \emph{GameActionBoardCubit} przeprowadza walidację stanu planszy. Metoda \emph{\_isValid} wskazuje, czy otrzymany zbiór kości jest zgodny z zasadami gry. Jeśli tak to zostanie wywołana funkcja dodania kości po stronie \emph{GameFirebase}, w przeciwnym wypadku zostanie wyświetlone powiadomie o tym, że plansza nie jest ułożona w poprawny sposób. W momencie, gdy czas gracza minął, a ten nie zdążył wyłożyć kości o poprawnej konfiguracji, plansza wraca do stanu sprzed modyfikacji ze strony danego gracza. \\ \\ \\ \\ \\ \\
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=13cm,height=10cm]{img/diagram-sekwencji-rack.png}
+	\end{center}
+	\caption{{\color{dgray}Diagram sekwencji zestawu kości gracza.}} 
+	\label{GameActionRackCubit}
+\end{figure} 
+
+Klasa \emph{GameActionRackCubit} jest odpowiedzialna za zarządzanie zbiorem kości gracza. Pobiera strumień z \emph{GameFirebase}, który będzie przekazywał zmiany zachodzące w zbiorze kości (w przypadku braku wyłożenia gracz będzie otrzymywał kość z banku). Klasa stanu \emph{RackChanged} zawiera listę kości. W momencie, gdy gracz wykłada kości na plansze, albo z powrotem wkłada (może wziąć z planszy tylko swoje kości), klasa \emph{GameActionRackCubit} jest informowana i aktualizuje listę kości gracza. W przypadku gdy czas gracza minął jest wykonywana funkcja \emph{restorePreviousRack}, poprzez którą zmiany dokonane przez gracza w czasie swojego ruchu są anulowane. \emph{GameActionRackCubit} zapamiętuje stan zestawów kości w momencie rozpoczęcia ruchu przez gracza.
