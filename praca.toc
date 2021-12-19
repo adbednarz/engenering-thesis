@@ -8,29 +8,28 @@
 \contentsline {section}{\numberline {2.1}Struktura}{5}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Przypadki użycia}{5}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Diagramy aktywności}{6}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Diagramy stanów}{6}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Opis technologii}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Flutter}{7}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Architektura}{7}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}Firebase}{8}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Firestore}{8}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Funkcje Firebase}{8}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Konsola Firebase}{8}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Emulator}{8}{subsection.3.2.4}%
-\contentsline {chapter}{\numberline {4}Implementacja serwisu}{11}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Serwer}{11}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Baza danych}{11}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Uwierzytelnianie}{12}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Funkcje}{12}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Klient}{14}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Warstwa prezentacji}{14}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Warstwa logiki}{15}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Warstwa danych}{16}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Przepływ zdarzeń}{19}{subsection.4.2.4}%
-\contentsline {chapter}{\numberline {5}Bot}{25}{chapter.5}%
-\contentsline {subsection}{\numberline {5.0.1}Złożoność gry}{25}{subsection.5.0.1}%
-\contentsline {subsection}{\numberline {5.0.2}Podstawowy}{25}{subsection.5.0.2}%
-\contentsline {subsection}{\numberline {5.0.3}Zaawansowany}{25}{subsection.5.0.3}%
-\contentsline {chapter}{Podsumowanie}{27}{chapter*.13}%
-\contentsline {chapter}{Bibliografia}{29}{chapter*.14}%
-\contentsline {chapter}{\numberline {A}Zawartość płyty CD}{31}{appendix.A}%
+\contentsline {chapter}{\numberline {3}Opis technologii}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Flutter}{9}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Architektura}{9}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Firebase}{10}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Firestore}{10}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Funkcje Firebase}{10}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Konsola Firebase}{10}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Emulator}{10}{subsection.3.2.4}%
+\contentsline {chapter}{\numberline {4}Implementacja serwisu}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Serwer}{13}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Baza danych}{13}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Uwierzytelnianie}{14}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Funkcje}{14}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Klient}{16}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Warstwa prezentacji}{16}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Warstwa logiki}{17}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Warstwa danych}{18}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Przepływ zdarzeń}{21}{subsection.4.2.4}%
+\contentsline {chapter}{\numberline {5}Bot}{27}{chapter.5}%
+\contentsline {subsection}{\numberline {5.0.1}Złożoność gry}{27}{subsection.5.0.1}%
+\contentsline {subsection}{\numberline {5.0.2}Podstawowy}{27}{subsection.5.0.2}%
+\contentsline {subsection}{\numberline {5.0.3}Zaawansowany}{27}{subsection.5.0.3}%
+\contentsline {chapter}{Podsumowanie}{29}{chapter*.15}%
+\contentsline {chapter}{Bibliografia}{31}{chapter*.16}%
+\contentsline {chapter}{\numberline {A}Zawartość płyty CD}{33}{appendix.A}%
