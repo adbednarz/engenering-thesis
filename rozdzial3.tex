@@ -5,12 +5,25 @@ W rozdziale tym wskazano jakie podejście technologiczne zostało użyte wraz z 
 
 \section{Flutter}
 
-Do implementacji serwisu po stronie klienta użyto technologii Flutter. Jest to zestaw narzędzi pozwalający tworzyć natywne, wieloplatformowe aplikacje mobilne, komputerowe oraz internetowe. Flutter stworzony jest przez firmę Google, a jego pierwsza stabilna wersja ukazała się pod koniec 2019 roku. Mimo stosunkowo młodej technologii Google przyczynia się do jej dynamicznego rozwoju i zdobywania popularności wśród programistów. Aplikacje we Flutterze pisze się w języku Dart. Jest to zorientowany obiektowo, statycznie typowany, wysokopoziomowy język programowania.
-Składnia języka Dart wzorowana była na takich językach programowania jak Java czy C\#, aby ułatwić programistom naukę nowego języka.
+Do implementacji serwisu po stronie klienta użyto technologii Flutter. Jest to zestaw narzędzi pozwalający tworzyć natywne, wieloplatformowe aplikacje mobilne, komputerowe oraz internetowe. Flutter stworzony jest przez firmę Google, a jego pierwsza stabilna wersja ukazała się pod koniec 2019 roku. Mimo stosunkowo młodej technologii Google przyczynia się do jej dynamicznego rozwoju i zdobywania popularności wśród programistów. 
 
-\subsection{Architektura}
+\subsection{Dart}
 
-Flutter domyślnie nie oddziela kodu dotyczącego sposobu działania programu od części wizualnej. Chcąc wyodrębnić aspekty wizualne od aspektów logicznych aplikacji, należy użyć wybranego wzorca architektury. Istnieje wiele pakietów pomagających zaimplementować poszczególne wzorce. W tym projekcie zastosowano rekomendowany przez Google pakiet BLoC, który umożliwia implementacje architektury trójwarstwowej z podziałem na warstwę wizualną, logiki i danych, jak również wprowadza system zarządzania stanami w aplikacji.
+Aplikacje we Flutterze pisze się w języku Dart. Jest to zorientowany obiektowo, statycznie typowany, wysokopoziomowy język programowania. Składnia języka Dart wzorowana była na takich językach programowania jak Java czy C\#, by ułatwić programistom naukę języka. Ze względu na to, że jest to dosyć nowy język, warto uwzględnić tutaj parę charakterystycznych cech, co może być przydatne w zapoznawaniu się z kodem źródłowym tego serwisu. \\
+
+Funkcja \emph{main()} jest punktem wejścia do programu napisanego za pomocą Dart, zatem język ten nie wymaga klasy (w przeciwieństwie do Java). Wszystko, co można umieścić we zmiennej, jest obiektem. Oprócz ogólnych typów danych, istnieje typ \emph{dynamic}. Zmiennna tego typu może zawierać dowolny typ. Wszystkie typy są domyślnie \emph{non-nullable}, więc muszą zawierać jakąś wartość. Jeśli chcemy zadeklarować zmienną z pustą wartością, po nazwie typu umieszczamy \emph{"?"} np. \emph{int?}. Dart używa wnioskowania o typie, więc zaleca się deklarowanie zmiennych z użyciem słowa kluczowego \emph{var} lub \emph{final} czy \emph{const}. W języku tym nie występują słowa kluczowe \emph{public}, \emph{protected}, \emph{private}. Domyślnie wszystkie zmienne są publiczne, jeśli jednak nazwa zmiennej będzie zaczynać się od \emph{,,\_''}, to będzie to zmienna prywatna. Podczas tworzenia obiektów używanie słowa \emph{new} jest opcjonalne. W konstruktorze można odwołać się do zmiennych instancji, aby automatycznie przypisać im wartości np. \emph{MojaKlasa(this.zmienna1, this.zmienna2);} Dodatkowo każda klasa ma domyślne metody \emph{set} do modifikowania danej zmiennej oraz \emph{get} do jej zwracania. W przypadku zmiennych prywatnych \emph{getter} nie występuje, a w przypadku stałych \emph{setter} nie występuje. \\
+
+W implementacji serwisu często korzystano z programowania asynchronicznego. W języku Dart programowanie to charakteryzuje się klasami \emph{Future} oraz \emph{Stream}. Obie klasą umożliwiają wykonywanie kodu asynchronicznie. W przypadku \emph{Future} wykonuje się jedno zapytanie i zwracana zostaje odpowiedź. Natomiast w przypadku \emph{Stream} na jedno zapytanie może być zwracane wiele odpowiedzi.
+
+\subsection{Widget}
+
+Każdy element interfejsu użytkownika we Flutterze jest widgetem. Widget może być elementem widocznym np. przyciskiem, ale również niewidocznym, który będzie odpowiadał za definiowanie układu elementów jak np. kolumna. Są dwa typy widgetów: statyczny oraz dynamiczny. W statycznym widgecie wszystkie pola muszą być stałe. W przypadku widgetów dynamicznych za każdym razem, gdy jego stan się zmienia jest przebudowywany. Interfejs buduje się  poprzez zagnieżdżanie widgetów. Zatem cała strona bądź ekran jest widgetem jako całość, ale ta całość składa się z innych widgetów. \\
+
+Ważnym aspektem w interfejsie użytkownika jest przechodzenie pomiędzy ekranami czy stronami. W Flutterze za ten mechanizm odpowiada \emph{Navigator}, który należy do widgetów niewidocznych oraz obiekt \emph{Route}. \emph{Navigator} zarządza obiektami \emph{Route} na stosie. Natomiast \emph{Route} jest obiektem reprezentującym daną stronę czy ekran. Przesyłając do \emph{Navigatora} obiekt \emph{Route}, widget znajdujący się w tym obiekcie będzie umieszczany na stosie, więc tylko on będzie widoczny jako interfejs użytkownika. Zatem cofnięcie się w tył w aplikacji, będzie zrzucało dany widget ze stosu i będzie widoczny poprzedni widget.
+
+\subsection{BLoC}
+
+Flutter domyślnie nie oddziela kodu dotyczącego sposobu działania programu od części wizualnej. Chcąc wyodrębnić aspekty wizualne od aspektów logicznych aplikacji, należy użyć wybranego wzorca architektury. Istnieje wiele pakietów pomagających zaimplementować poszczególne wzorce. W tym projekcie zastosowano rekomendowany przez Google pakiet BLoC, który umożliwia implementacje architektury trójwarstwowej z podziałem na warstwę wizualną, logiki i danych, jak również wprowadza system zarządzania stanami w aplikacji. \\
 
 \begin{figure}[h!]
 	\begin{center}
