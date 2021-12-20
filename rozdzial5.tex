@@ -1,20 +1,20 @@
 \chapter{Bot}
 \thispagestyle{chapterBeginStyle}
 
-W ostatnim rozdziale omówiono aspekty związane z implementacją bota. Jakie podejścia zostały zrealizowane do zrealizowania tego celu oraz przeanalizowanie złożoności gry Rummikub. W związku z zastosowaniem architektury trójwarstwowej po stronie klienta instancja Bota zastępuję warstwę danych bez konieczności modyfikowania logiki aplikacji.
+W ostatnim rozdziale omówiono aspekty związane z implementacją bota. Jakie podejścia zostały zrealizowane do zrealizowania tego celu oraz przeanalizowanie złożoności gry Rummikub. Podczas rozważania złożoności gry oraz implementacji bota skorzystano z artykułu \cite{RummikubComplexity}. W związku z zastosowaniem architektury trójwarstwowej po stronie klienta instancja Bota zastępuję warstwę danych bez konieczności modyfikowania logiki aplikacji.
+
+\subsection{Podstawowy}
+
+Implementacja podstawowego bota miała na celu prostą imitację gracza. Jest on przeznaczony dla osób, które dopiero poznają grę Rummikub. Jego zasada działania polega na formowaniu serii oraz grup z własnego zbioru kości. Bot ponadto potrafi modyfikować zbiory znajdujące się na planszy poprzez dodanie swoich kości na początek lub na koniec danego zbioru.
 
 \subsection{Złożoność gry}
 
 Gra Rummikub składa się z 106 kości, w których są dwa jokery. Joker może reprezentować sobą dowolną inną kość. Zatem 104 kości są numerowane od 1 do 13, w czterech różnych kolorach i każda kość występuje dwa razy. Kości można grupować w sekcje (rosnący ciąg liczb o tym samym kolorze) lub w grupy (kości o takiej samej liczbie z różnymi kolorami). Problemem jest znalezienie najlepszego wyłożenia podczas danego ruchu. \\
 
-
-
-\subsection{Podstawowy}
-
-
+ Liczbę sposobów ułożenia grup z danej puli kości oznaczono jako $G(k, m)$, gdzie $k$ to jest liczba kolorów, a $m$ to jest liczba kopii. Na początek wzięto pod rozważanie przypadek, gdy $k = 4$, a $m = 1$. W takim przypadku dla danej wartości kości można nie formować żadnej grupy, formować cztery grupy o długości trzy lub jedną o długości cztery. Zatem $G(4,1) = 1 + {{4}\choose{3}} + 1 = 6$. W przypadku, gdy $m = 2$ pojawia się kopia każdej kości, a zatem są dwa zestawy, dla których można policzyć $G(4,1)$. Czyli $G(4,2) < G(4,1)^2$. Jest to górna granica, ponieważ pewne przypadki zostaną policzone więcej niż raz. Podczas tworzenia grup nie bierze się pod uwagę kolejności w jakiej te grupy są tworzone oraz przypadki, które łącznie dają taki sam zbiór kości, nie powinny być rozróżnialne. Pomimo tego liczba możliwych sposobów utworzenia grup rośnie nadal wykładniczo powołując się na artykuł \cite{RummikubComplexity}. Z tego powodu w implementacji algorytmu na początku formuje się serie, a dopiero poźniej grupy z pozostałych kości.
+ 
 
 \subsection{Zaawansowany}
 
 
 
-%\cite{RummikubComplexity}

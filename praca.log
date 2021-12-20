@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  20 DEC 2021 01:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  20 DEC 2021 18:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1596,9 +1596,14 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 (hyperref)                than one, level fixed on input line 6.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 8--9
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
  []
+
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 14.
 
 ) [27
 
@@ -1651,29 +1656,36 @@ Package pdftex.def Info: img/wit-logo.png  used on input line 747.
 
 ] (praca.aux)
 Package rerunfilecheck Info: File `praca.out' has not changed.
-(rerunfilecheck)             Checksum: 86D9FE9F44D69F3CD01380E85FA5036A;4021.
+(rerunfilecheck)             Checksum: D164BBA909F9770DFC0F5D35A71F6B86;4021.
  ) 
 Here is how much of TeX's memory you used:
  18889 strings out of 478659
  308519 string characters out of 2846394
- 643583 words of memory out of 3000000
+ 642583 words of memory out of 3000000
  36506 multiletter control sequences out of 15000+600000
  460219 words of font info for 64 fonts, out of 8000000 for 9000
  1180 hyphenation exceptions out of 8191
  60i,18n,71p,1736b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:
-/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Use
-rs/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rmsc.enc}<C:/Users/
-Adam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/A
-dam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Ad
-am/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/Ad
-am/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Adam
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Adam/A
-ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/Adam/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb>
-Output written on praca.pdf (40 pages, 599246 bytes).
+{C:/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plrm.enc}{C:/
+Users/Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plme.enc}{C:/Users/
+Adam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plmi.enc}{C:/Users/Adam/A
+ppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Adam/AppDat
+a/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Users/Adam/AppData/Lo
+cal/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rmsc.enc}<C:/Users/Adam/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/Adam/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Adam/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/Adam/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Adam/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Adam/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/Adam/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/Adam/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/pl/plex10.pfb><C:/Users/Adam/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/pl/plmi10.pfb><C:/Users/Adam/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/pl/plr10.pfb><C:/Users/Adam/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/pl/plr7.pfb>
+Output written on praca.pdf (40 pages, 622344 bytes).
 PDF statistics:
- 460 PDF objects out of 1000 (max. 8388607)
+ 485 PDF objects out of 1000 (max. 8388607)
  92 named destinations out of 1000 (max. 500000)
  356 words of extra memory for PDF output out of 10000 (max. 10000000)
 
