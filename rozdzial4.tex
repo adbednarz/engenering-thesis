@@ -144,11 +144,16 @@ W przypadku firebase zdefiniowane są dwie klasy \emph{AuthFirebase} oraz \emph{
 	\caption{{\color{dgray}Diagram klas warstwy danych firebase.}} 
 	\label{firebase}
 \end{figure}  
-Klasa \emph{AuthFirebase} jest w relacji z klasą \emph{AuthenticationProvider} w postaci agregacji całkowitej (kompozycji). Oznacza to, że klasa główna (\emph{AuthFirebase}) ma na własność klasę częściową (\emph{AuthenticationProvider}) i kontroluje cykl życia części. Natomiast pomiędzy \emph{AuthFirebase}, a \emph{FirestoreProvider} występuje relacja agregacji częściowej. To znaczy, że element częściowy (\emph{FirestoreProvider}) należy do elementu głównego (\emph{AuthFirebase}), ale nie jest od niego zależny. Usunięcie elementu głównego, nie wpłynie na element częściowy. W przypadku \emph{GameFirebase} występuje ona w relacji częściowej z \emph{FirestoreProvider}, a w relacji agregacji całkowitej z \emph{FirestoreProvider}. Zatem z klasy \emph{FirestoreProvider} korzysta się w obu klasach implementujących interfejsy warstwy danych. \\ 
-Klasa \emph{AuthenticationProvider} odpowiada za połączenie się z usługą \emph{Firebase Authentication} i przeprowadzanie operacji zarejestrowania, zalogowania i wylogowania użytkownika. \\
-Klasa \emph{FirestoreProvider} odpowiada za połączenie się z usługą \emph{Firebase Firestore} (baza danych czasu rzeczywistnego). Klasa ta czyta lub zapisuje dane do bazy danych. Ponadto tworzy strumienie, które nasłuchują zmiany zachodzące w wybranych miejscach w bazie danych. \\
-Klasa \emph{FunctionsProvider} odpowiada za połączenie się z usługą \emph{Firebase Functions}. Wywołuje dedykowane funkcje po stronie serwera. \\
+
+Klasa \emph{AuthFirebase} jest w relacji z klasą \emph{AuthenticationProvider} w postaci agregacji całkowitej (kompozycji). Oznacza to, że klasa główna (\emph{AuthFirebase}) ma na własność klasę częściową (\emph{AuthenticationProvider}) i kontroluje cykl życia części. Natomiast pomiędzy \emph{AuthFirebase}, a \emph{FirestoreProvider} występuje relacja agregacji częściowej. To znaczy, że element częściowy (\emph{FirestoreProvider}) należy do elementu głównego (\emph{AuthFirebase}), ale nie jest od niego zależny. Usunięcie elementu głównego, nie wpłynie na element częściowy. W przypadku \emph{GameFirebase} występuje ona w relacji częściowej z \emph{FirestoreProvider}, a w relacji agregacji całkowitej z \emph{FirestoreProvider}. Zatem z klasy \emph{FirestoreProvider} korzysta się w obu klasach implementujących interfejsy warstwy danych. 
+
+Klasa \emph{AuthenticationProvider} odpowiada za połączenie się z usługą \emph{Firebase Authentication} i przeprowadzanie operacji zarejestrowania, zalogowania i wylogowania użytkownika. 
+
+Klasa \emph{FirestoreProvider} odpowiada za połączenie się z usługą \emph{Firebase Firestore} (baza danych czasu rzeczywistnego). Klasa ta czyta lub zapisuje dane do bazy danych. Ponadto tworzy strumienie, które nasłuchują zmiany zachodzące w wybranych miejscach w bazie danych. 
+
+Klasa \emph{FunctionsProvider} odpowiada za połączenie się z usługą \emph{Firebase Functions}. Wywołuje dedykowane funkcje po stronie serwera. 
 W przypadku bota zdefiniowana jest jedna klasa \emph{GameBot}, która implementuje interfejs \emph{GameRepository}. Klasa ta zarządza instancją gry, która jest tworzona lokalnie na urządzeniu użytkownika. Biorąc pod uwagę rozwiązanie w postaci bota, konto użytkownika nie jest w użyciu. 
+
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=8cm,height=9cm]{img/bot-client.png}
@@ -157,8 +162,10 @@ W przypadku bota zdefiniowana jest jedna klasa \emph{GameBot}, która implementu
 	\label{bot}
 \end{figure}
 
-Klasa \emph{GameBot} występuje w relacji agregacji całkowitej z klasami \emph{Game} oraz \emph{BotEngine}. Klasa główna może zawierać od 1 do 3 instancji klasy \emph{BotEngine}. To ograniczenie wzięło się z zasady, że w grę Rummikub może grać od 2 do 4 graczy. Klasy \emph{BasicBot} i \emph{AdvancedBot} dziedziczą po klasie \emph{BotEngine}. \\
-Klasa \emph{Game} jest instancją gry. Tworzy wszystkie możliwe kości w grze i losowo przydziela każdemu uczestnikowi. Przechowuje w sobie listę dostępnych kości do rozdania, listę kości przypisanych każdemu graczowi oraz zbiór zestawów kości, które są obecnie na planszy. \\
+Klasa \emph{GameBot} występuje w relacji agregacji całkowitej z klasami \emph{Game} oraz \emph{BotEngine}. Klasa główna może zawierać od 1 do 3 instancji klasy \emph{BotEngine}. To ograniczenie wzięło się z zasady, że w grę Rummikub może grać od 2 do 4 graczy. Klasy \emph{BasicBot} i \emph{AdvancedBot} dziedziczą po klasie \emph{BotEngine}. 
+
+Klasa \emph{Game} jest instancją gry. Tworzy wszystkie możliwe kości w grze i losowo przydziela każdemu uczestnikowi. Przechowuje w sobie listę dostępnych kości do rozdania, listę kości przypisanych każdemu graczowi oraz zbiór zestawów kości, które są obecnie na planszy. 
+
 Klasa \emph{BotEngine} ma na celu imitować prawdziwego gracza. Analizuje obecny układ kości na plaszy oraz swoje własne kości i na tej podstawie wykonuje wyłożenie. Klasy \emph{BasicBot} oraz \emph{AdvancedBot} różnią się zaimplementowanym algorytmem wykonującym ruch. Algorytmy te wraz z opisem złożoności gry są przedstawione w następnym rozdziale.
 
 \subsection{Przepływ zdarzeń}

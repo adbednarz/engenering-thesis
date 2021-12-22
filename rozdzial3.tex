@@ -1,7 +1,8 @@
 \chapter{Opis technologii}
 \thispagestyle{chapterBeginStyle}
 
-W rozdziale tym wskazano jakie podejście technologiczne zostało użyte wraz z omówieniem i zaargumentowaniem powodu takiego wyboru. Przedstawiono również jakie konkretne aspekty tych technologii zostały wykorzystane w projekcie.
+W rozdziale tym wskazano jakie podejście technologiczne zostało użyte wraz z omówieniem i %JL zaargumentowaniem
+uzasadnieniem powodu takiego wyboru. Przedstawiono również jakie konkretne aspekty tych technologii zostały wykorzystane w projekcie.
 
 \section{Flutter}
 
@@ -11,7 +12,8 @@ Do implementacji serwisu po stronie klienta użyto technologii Flutter. Jest to 
 
 Aplikacje we Flutterze pisze się w języku Dart. Jest to zorientowany obiektowo, statycznie typowany, wysokopoziomowy język programowania. Składnia języka Dart wzorowana była na takich językach programowania jak Java czy C\#, by ułatwić programistom naukę języka. Ze względu na to, że jest to dosyć nowy język, warto uwzględnić tutaj parę charakterystycznych cech, co może być przydatne w zapoznawaniu się z kodem źródłowym tego serwisu. \\
 
-Funkcja \emph{main()} jest punktem wejścia do programu napisanego za pomocą Dart, zatem język ten nie wymaga klasy (w przeciwieństwie do Java). Wszystko, co można umieścić we zmiennej, jest obiektem. Oprócz ogólnych typów danych, istnieje typ \emph{dynamic}. Zmiennna tego typu może zawierać dowolny typ. Wszystkie typy są domyślnie \emph{non-nullable}, więc muszą zawierać jakąś wartość. Jeśli chcemy zadeklarować zmienną z pustą wartością, po nazwie typu umieszczamy \emph{"?"} np. \emph{int?}. Dart używa wnioskowania o typie, więc zaleca się deklarowanie zmiennych z użyciem słowa kluczowego \emph{var} lub \emph{final} czy \emph{const}. W języku tym nie występują słowa kluczowe \emph{public}, \emph{protected}, \emph{private}. Domyślnie wszystkie zmienne są publiczne, jeśli jednak nazwa zmiennej będzie zaczynać się od \emph{,,\_''}, to będzie to zmienna prywatna. Podczas tworzenia obiektów używanie słowa \emph{new} jest opcjonalne. W konstruktorze można odwołać się do zmiennych instancji, aby automatycznie przypisać im wartości np. \emph{MojaKlasa(this.zmienna1, this.zmienna2);} Dodatkowo każda klasa ma domyślne metody \emph{set} do modifikowania danej zmiennej oraz \emph{get} do jej zwracania. W przypadku zmiennych prywatnych \emph{getter} nie występuje, a w przypadku stałych \emph{setter} nie występuje. \\
+Funkcja \emph{main()} jest punktem wejścia do programu napisanego za pomocą Dart, zatem język ten nie wymaga klasy (w przeciwieństwie do Java). Wszystko, co można umieścić %JL we
+w zmiennej, jest obiektem. Oprócz ogólnych typów danych, istnieje typ \emph{dynamic}. Zmienna tego typu może zawierać dowolny typ. Wszystkie typy są domyślnie \emph{non-nullable}, więc muszą zawierać jakąś wartość. Jeśli chcemy zadeklarować zmienną z pustą wartością, po nazwie typu umieszczamy \emph{"?"} np. \emph{int?}. Dart używa wnioskowania o typie, więc zaleca się deklarowanie zmiennych z użyciem słowa kluczowego \emph{var} lub \emph{final} czy \emph{const}. W języku tym nie występują słowa kluczowe \emph{public}, \emph{protected}, \emph{private}. Domyślnie wszystkie zmienne są publiczne, jeśli jednak nazwa zmiennej będzie zaczynać się od \emph{,,\_''}, to będzie to zmienna prywatna. Podczas tworzenia obiektów używanie słowa \emph{new} jest opcjonalne. W konstruktorze można odwołać się do zmiennych instancji, aby automatycznie przypisać im wartości np. \emph{MojaKlasa(this.zmienna1, this.zmienna2);} Dodatkowo każda klasa ma domyślne metody \emph{set} do modyfikowania danej zmiennej oraz \emph{get} do jej zwracania. W przypadku zmiennych prywatnych \emph{getter} nie występuje, a w przypadku stałych \emph{setter} nie występuje. \\
 
 W implementacji serwisu często korzystano z programowania asynchronicznego. W języku Dart programowanie to charakteryzuje się klasami \emph{Future} oraz \emph{Stream}. Obie klasą umożliwiają wykonywanie kodu asynchronicznie. W przypadku \emph{Future} wykonuje się jedno zapytanie i zwracana zostaje odpowiedź. Natomiast w przypadku \emph{Stream} na jedno zapytanie może być zwracane wiele odpowiedzi.
 
@@ -41,19 +43,24 @@ Cubit komunikuje się z warstwą danych poprzez funkcje asynchroniczne. Natomias
 
 \section{Firebase}
 
-Rolę serwera i bazy danych pełni platforma Firebase. Technologia ta, zarządzana również przez Google, określana jest jako Backend-as-a-Service. Firebase dostarcza wiele funkcjonalności wspierające tworzenie projektów w tym między innymi uwierzytelnianie użytkowników, bazę danych NoSQL oraz API odpowiedzialne za komunikację. Usługi, które świadczy Firebase są bezpłatne, jeśli nie przekroczą pewnego z góry ustalonego limitu zdefiniowanego dla poszczególnej funkcjonalności. 
+Rolę serwera i bazy danych pełni platforma Firebase. Technologia ta, zarządzana również przez Google, określana jest jako Backend-as-a-Service. Firebase dostarcza wiele funkcjonalności 
+%JL wspierające
+wspierających tworzenie projektów w tym między innymi uwierzytelnianie użytkowników, bazę danych NoSQL oraz API odpowiedzialne za komunikację. Usługi, które świadczy Firebase są bezpłatne, jeśli nie przekroczą pewnego z góry ustalonego limitu zdefiniowanego dla poszczególnej funkcjonalności. 
 
 \subsection{Firestore}
 
-Firestore jest to baza danych NoSQL w chmurze. Jej strukturą są kolekcje, które zawierają dokumenty, które te z kolei zawierają dane, ale także mogą zawierać kolejne kolekcje. \\
-Definiując zapytania do bazy danych zwracane są jedynie dokumenty z poszczególnej kolekcji lub grup kolekcji. Firestore umożliwia tworzenie prostych zapytań SQL, które filtruje wyniki na podstawie wartości danych znajdujących się w dokumencie. \\
-Firebase umożliwia po stronie klienta implementacje słuchaczy, którzy będą niezwłocznie informowani, gdy w obserwowanym dokumencie zaszła zmiana. \\
+Firestore jest to baza danych NoSQL w chmurze. Jej strukturą są kolekcje, które zawierają dokumenty, które te z kolei zawierają dane, ale także mogą zawierać kolejne kolekcje. 
+%JL Definiując
+Dla danego zapytania do bazy danych zwracane są jedynie dokumenty z poszczególnej kolekcji lub grup kolekcji. Firestore umożliwia tworzenie prostych zapytań SQL, które filtruje wyniki na podstawie wartości danych znajdujących się w dokumencie. 
+
+Firebase umożliwia po stronie klienta implementacje słuchaczy, którzy będą niezwłocznie informowani, gdy w obserwowanym dokumencie zaszła zmiana. 
+
 Firestore umożliwia konfigurację dostępu do bazy danych za pomocą definiowania reguł bezpieczeństwa. Dla każdego dokumentu oraz pola można zdefiniować zakres dostępu (czytanie, modyfikacja, usuwanie) dla poszczególnego użytkownika.
 
 
 \subsection{Funkcje Firebase}
 
-Umożliwiają zaimplementowanie własnego kodu po stronie serwera. Są wywoływane poprzez zapytania HTTPS lub w odpowiedzi na zdarzenia powstałe w bazie danych Firestore. \\
+Umożliwiają zaimplementowanie własnego kodu po stronie serwera. Są wywoływane poprzez zapytania HTTPS lub w odpowiedzi na zdarzenia powstałe w bazie danych Firestore. 
 Możliwe jest wywoływanie bezpośrednio z poziomu aplikacji. Do zapytania dołączane są tokeny uwierzytelniania Firebase i tokeny sprawdzania aplikacji.
 
 \subsection{Konsola Firebase}
@@ -62,7 +69,7 @@ Jest to strona internetowa, która oferuje dostęp do wszystkich funkcjonalnośc
 
 \subsection{Emulator}
 
-Korzystając z funkcjonalności funkcji Firebase napotyka się na problem długiego czasu oczekiwania na zaktualizowanie kodu źródłowego programisty w chmurze Firebase (czas trwania około minuty). Oczekiwanie dłuższe niż parę sekund sprawia, że czas tworzenia kodu źródłowego po stronie serwera znacząco się wydłuża. Kolejną sprawą jest fakt, że w trakcie, gdy dany projekt jest już dostępny dla użytkowników, nie jest wskazana jego modyfikacja. Zatem trzeba tworzyć kopie projektu, które przeznaczone są modyfikacji, co w przypadku, gdy nad projektem pracuje wielu programistów, staje się jeszcze bardziej nieefektywne. Ostatnim aspektem są koszty. W momencie programowania i testowania funkcjonalności serwera może dochodzić do generowania dużej ilości zapytań, co z kolei sumuje się do liczby zapytań i ewentualnych płatności. \\
+Korzystając z funkcjonalności funkcji Firebase napotyka się na problem długiego czasu oczekiwania na zaktualizowanie kodu źródłowego programisty w chmurze Firebase (czas trwania około minuty). Oczekiwanie dłuższe niż parę sekund sprawia, że czas tworzenia kodu źródłowego po stronie serwera znacząco się wydłuża. Kolejną sprawą jest fakt, że w trakcie, gdy dany projekt jest już dostępny dla użytkowników, nie jest wskazana jego modyfikacja. Zatem trzeba tworzyć kopie projektu, które przeznaczone są do modyfikacji, co w przypadku, gdy nad projektem pracuje wielu programistów, staje się jeszcze bardziej nieefektywne. Ostatnim aspektem są koszty. W momencie programowania i testowania funkcjonalności serwera może dochodzić do generowania dużej ilości zapytań, co z kolei sumuje się do liczby zapytań i ewentualnych płatności. \\
 
 Z powodu wyżej wymienionych problemów wraz z rozwojem platformy Firebase w 2019 roku oficjalnie został zaprezentowany Firebase Local Emulators. Emulator ten pozwala uruchomić wszystkie usługi Firebase lokalnie na własnym komputerze. Dzięki czemu szybko można nanieść zmiany w funkcjach Firebase, nie modyfikując właściwego projektu, a wykonywane zapytania nie są zliczane. \\
 
