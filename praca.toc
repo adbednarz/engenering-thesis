@@ -31,7 +31,7 @@
 \contentsline {chapter}{\numberline {5}Bot}{27}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Podstawowy bot}{27}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Złożoność gry}{27}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Zaawansowany bot}{27}{section.5.3}%
-\contentsline {chapter}{Podsumowanie}{29}{chapter*.15}%
-\contentsline {chapter}{Bibliografia}{31}{chapter*.16}%
-\contentsline {chapter}{\numberline {A}Zawartość płyty CD}{33}{appendix.A}%
+\contentsline {section}{\numberline {5.3}Zaawansowany bot}{28}{section.5.3}%
+\contentsline {chapter}{Podsumowanie}{31}{chapter*.15}%
+\contentsline {chapter}{Bibliografia}{33}{chapter*.16}%
+\contentsline {chapter}{\numberline {A}Zawartość płyty CD}{35}{appendix.A}%
