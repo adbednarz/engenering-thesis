@@ -13,16 +13,15 @@ Gra Rummikub składa się z 106 kości, w których są dwa jokery. Joker może r
 
  Liczbę sposobów ułożenia grup z danej puli kości oznaczono jako $G(k, m)$, gdzie $k$ to jest liczba kolorów, a $m$ to jest liczba kopii. Na początek wzięto pod rozważanie przypadek, gdy $k = 4$, a $m = 1$. W takim przypadku dla danej wartości kości można nie formować żadnej grupy, formować cztery grupy o długości trzy lub jedną o długości cztery. Zatem $G(4,1) = 1 + {{4}\choose{3}} + 1 = 6$. W przypadku, gdy $m = 2$ pojawia się kopia każdej kości, a zatem są dwa zestawy, dla których można policzyć $G(4,1)$. Czyli $G(4,2) < G(4,1)^2$. Jest to górna granica, ponieważ pewne przypadki zostaną policzone więcej niż raz. Podczas tworzenia grup nie bierze się pod uwagę kolejności w jakiej te grupy są tworzone oraz przypadki, które łącznie dają taki sam zbiór kości, nie powinny być rozróżnialne. Pomimo tego liczba możliwych sposobów utworzenia grup rośnie nadal wykładniczo powołując się na artykuł \cite{RummikubComplexity}. Z tego powodu w implementacji algorytmu na początku formuje się serie, a dopiero później grupy z pozostałych kości. \\
 
- W przypadku wyboru podejścia, w którym najpierw formułuje się serie, stany planszy się zawężają. Mianowicie stan gry jest określony poprzez możliwe wartość kości oraz długość serii dla każdej kopii każdego koloru. Ze względu na to, że minimalna długość serii wynosi trzy, nie ma potrzeby rozróżniać serii dłuższych od trzech. 
- 
- W celu uproszczenia wyjaśnienia zastosowanego podejścia do zdefiniowania możliwych stanów gry, przyjęto $m = 1$, czyli kości nie mają swoich kopii. W takim przypadku kość o danej wartości i danym kolorze można dodać do serii lub nie. Jeśli kość zostanie dodana, długość serii zwiększana jest o jeden. Jeśli długość ta wcześniej wynosiła trzy, zostaje bez zmian. Gdy kość nie zostanie dodana, długość serii jest zerowana. Dzięki temu nie ma potrzeby rozróżniania serii dłuższych niż trzy. W każdym przebiegu algorytmu po możliwych wartościach kości będzie można wywnioskować, czy dana seria jest kontynuowana i odpowiednio podliczyć punkty. W przypadku, gdy dana seria zwiększy długość z $2$ na $3$, do sumy punktów zostanie dodana wartość $(v-2)+(v-1)+v$, gdzie $v$ to możliwa wartość kości ($1 \le v \le 13$). Jeśli długością serii pozostanie $3$, do sumy punktów będzie dodana dana wartość $v$. \\
- Zatem wszystkie możliwe konfiguracje serii dla danego koloru to $\{0\}, \{1\}, \{2\}, \{3\}$. W przypadku, gdy $m=2$ jest to odpowiednio $\{0,0\}, \{0,1\}, \{0,2\}, \{0,3\}, \{1,1\}, \{1,2\}, \{1,3\}, \{2,2\},\{2,3\}, \{3,3\}$. Kolejność serii o tym samym kolorze nie ma znaczenia.
- 
- Podsumowując, stan gry może maksymalnie wynieść $v \times k \times \left(\!\!{4\choose m}\!\!\right)$, gdzie $v$ są to wartości, które mogą przyjmować kości, $k$ to możliwe kolory, a $\left(\!\!{4\choose m}\!\!\right)$ to kombinacje z powtórzeniami, które określają liczbę możliwych stanów serii dla $m$ kopii.
+Wybierając podejście, w którym najpierw formułuje się serie, a później grupy, dzieli się zbiór wszystkich kości (plansza oraz kości gracza) ze względu na wartość danej kości. Dla każdego podzbioru w kolejności od kości o wartościach $1$ aż do wartości $13$ tworzy się wszystkie możliwe kombinacje użycia poszczególnych kości do danych serii. Natomiast z kości, które pozostały w podzbiorach tworzy się możliwie jak największe grupy. \\
+
+Zatem wystarczy dla każdego podzbioru o danej wartości kości, zdefiniować wszystkie możliwe do uzyskania konfiguracje serii. Aby seria spełniała zasady gry musi mieć co najmniej długość $3$. Z tego powodu poszczególne serie koduje się za pomocą cyfr $0$, $1$, $2$, $3$.  Wszystkie serie o długości powyżej $3$ koduje się jako $(3)$ w celu optymalizacji liczebności serii. Poszczególny stan gry będzie przedstawiony w postaci \emph{[wartość, konfiguracje serii]}. \\
+
+W grze Rummikub jest możliwe stworzenie ośmiu pełnych serii (zbiór kości 1-13). Z tego powodu, że występują cztery kolory oraz każda kość ma swoją kopię. Zatem stan gry będzie określony jako $[v, abcdefgh]$, gdzie $v \in \{1..13\}$, a $(a, b, c, d, e, f, g, h) \in \{0, 1, 2, 3\}$. Założono, że $(a, b)$ przedstawiają serie koloru czarnego, $(c, d)$ koloru niebieskiego, $(e, f)$ koloru pomarańczowego, $(g, h)$ koloru czerwonego. Serie kości $(2, 3, 4, 5)$ koloru niebieskiego oraz $(1, 2, 3)$ koloru czerwonego będą zakodowane w następujący sposób: $$[1, 00000001], [2, 00010002], [3, 00020003], [4, 00030000], [5, 00030000], [6, 00000000]$$
 
 \section{Zaawansowany bot}
 
-Podczas implementacji bota zmodyfikowano algorytm opisany w artykule. $MaxScore$ oprócz zwracania największej możliwej liczby wartości kości, zwraca również utworzone serie i grupy oraz nieużyte kości. \\
+Podczas implementacji bota zmodyfikowano algorytm opisany w artykule \cite{RummikubComplexity}. $MaxScore$ oprócz zwracania największej możliwej sumy wszystkich wartości kości, zwraca również wybraną konfiguracje serii oraz gwarantuje, że wszystkie kości na planszy będą ponownie wykorzystane. \\
 
 \begin{pseudokod}[H]
 	\SetAlTitleFnt{small}
@@ -35,7 +34,7 @@ Podczas implementacji bota zmodyfikowano algorytm opisany w artykule. $MaxScore$
 	\KwOut{$result[value, runs]$}
 	\vskip 1mm
 	\If{$value > 13$}{
-		\textbf{return} $[0, runs]$;
+		\textbf{return} $null$;
 	}
 	\If{$result[value, runs] \neq null$}{
 		\textbf{return} $result[value, runs]$;
@@ -57,7 +56,6 @@ Podczas implementacji bota zmodyfikowano algorytm opisany w artykule. $MaxScore$
 	\caption{MaxScore}\label{alg:mine}
 \end{pseudokod}
 \vskip 3mm
-Powyższy algorytm przyjmuje na wejście liczbę $value$ ($1 \le value \le 13$) jest to możliwa wartość kości w grze. Drugim parametrem wejściowym jest $runs$ jest to dwuwymiarowa tablica zawierająca daną konfiguracje serii dla każdej kopii koloru. Ostatnim parametrem jest tablica dwuwymiarowa $tableTiles$ wskazująca dla każdej kopii koloru, ile kości należących do planszy zostało użyte przy układaniu kości ($value-2$) oraz ($value-1$). Parametr ten pozwala wskazać, czy nie zostanie złamana reguła wykładania wszystkich kości z planszy, gdyby seria o długości mniejszej niż trzy została przerwana. Parametrem wyjściowym jest liczba punktów i wybrana konfiguracja serii znajdujące się w tablicy $result$. \\
 
 Na początku algorytmu sprawdzane jest czy dana wartość $value$ nie przekroczyła maksymalnej wartości kości oraz czy dany stan gry nie został już poprzednio obliczony. Następnie następuje iteracja po wszystkich możliwych nowych konfiguracjach serii. Funkcja $MakeRuns$ tworzy nowe konfiguracje na podstawie obecnej konfiguracji serii i dostępnych kościach o wartości $value$. Funkcja $GetRunScores$ oblicza punkty na podstawie porównania nowej konfiguracji $possibleRuns$ z poprzednią $runs$. Ponadto usuwa ze zbioru $tiles$, użyte kości do utworzenia nowej konfiguracji serii. W przypadku gdyby seria o długości mniejszej niż trzy zawierające kości należące do planszy zostałaby przerwana, $GetRunScores$ zwróci wartość $-1$. $GetGroupScores$ z kolei tworzy grupy o największej liczbie punktów, usuwa użyte kości ze zbioru $tiles$ i w przypadku gdy pozostaną kości należące do planszy również zwraca $-1$. Następnie jest wywoływana rekurencyjnie funkcja $MaxScore$, której przekazywana wartość kości powiększona o jeden, nowa konfiguracja kości oraz zmodyfikowana tablica $tableTiles$. Po zsumowaniu wyniku sprawdzane jest, czy otrzymywany wynik jest obecnie największym możliwym wynikiem dla tego stanu gry.
 Najlepszy wynik otrzymany w poszczególnym stanie jest zapisywany do tablicy wszystkich stanów wraz z konfiguracją serii, która została wybrana dla tego stanu. \\
