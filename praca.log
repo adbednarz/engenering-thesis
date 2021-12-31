@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  31 DEC 2021 02:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2021.12.9)  31 DEC 2021 16:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1629,27 +1629,89 @@ LaTeX Font Info:    Trying to load font information for OT4+lmtt on input line
 (C:\Users\Adam\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot4lmtt.fd
 File: ot4lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 60--62
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
 
  []
 
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
-Package pdftex.def Info: img/wit-logo.png  used on input line 62.
+Package pdftex.def Info: img/wit-logo.png  used on input line 61.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
-[28])
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 62--63
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--70
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--70
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--70
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--70
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--72
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--83
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--83
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--83
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--83
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--83
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--83
+
+ []
+
 File: img/pwr-logo.png Graphic file (type png)
 <use img/pwr-logo.png>
-Package pdftex.def Info: img/pwr-logo.png  used on input line 720.
+Package pdftex.def Info: img/pwr-logo.png  used on input line 83.
 (pdftex.def)             Requested size: 22.89163pt x 22.7839pt.
- [29]
+[29]
+Underfull \hbox (badness 10000) in paragraph at lines 84--86
+
+ []
+
+)
 File: img/wit-logo.png Graphic file (type png)
 <use img/wit-logo.png>
 Package pdftex.def Info: img/wit-logo.png  used on input line 720.
 (pdftex.def)             Requested size: 22.89163pt x 22.88895pt.
- [30
-
-] (podsumowanie.tex
+ [30] (podsumowanie.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
@@ -1660,6 +1722,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--8
  []
 
 ) [31
+
 
 ]
 File: img/wit-logo.png Graphic file (type png)
@@ -1693,8 +1756,8 @@ Package rerunfilecheck Info: File `praca.out' has not changed.
 (rerunfilecheck)             Checksum: FCC25F97A116866D550E4AFF264E4C59;4038.
  ) 
 Here is how much of TeX's memory you used:
- 18973 strings out of 478659
- 309684 string characters out of 2846394
+ 18972 strings out of 478659
+ 309671 string characters out of 2846394
  647623 words of memory out of 3000000
  36562 multiletter control sequences out of 15000+600000
  478408 words of font info for 72 fonts, out of 8000000 for 9000
@@ -1722,9 +1785,9 @@ type1/public/pl/plmi10.pfb><C:/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/pl/plr10.pfb><C:/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/typ
 e1/public/pl/plr7.pfb><C:/Users/Adam/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/pl/plsy10.pfb>
-Output written on praca.pdf (42 pages, 692834 bytes).
+Output written on praca.pdf (42 pages, 698473 bytes).
 PDF statistics:
- 532 PDF objects out of 1000 (max. 8388607)
- 111 named destinations out of 1000 (max. 500000)
+ 531 PDF objects out of 1000 (max. 8388607)
+ 110 named destinations out of 1000 (max. 500000)
  356 words of extra memory for PDF output out of 10000 (max. 10000000)
 
