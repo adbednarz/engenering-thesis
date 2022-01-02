@@ -1,27 +1,59 @@
 \chapter{Bot}
 \thispagestyle{chapterBeginStyle}
 
-W ostatnim rozdziale przedstawiono analizę złożoności gry Rummikub oraz jakie podejścia zostały zrealizowane do implementacji bota . Podczas rozważania złożoności gry oraz implementacji skorzystano z artykułu ,,The Complexity of Rummikub Problems'' \cite{RummikubComplexity}. W związku z zastosowaniem architektury trójwarstwowej po stronie klienta bot zastępuje  warstwę danych bez konieczności modyfikowania logiki aplikacji.
+W ostatnim rozdziale przedstawiono analizę złożoności gry Rummikub oraz 
+%JL
+opisano jakie podejścia zostały zrealizowane %JL do
+w celu  implementacji bota. Podczas rozważania złożoności gry oraz %JL implementacji
+tworzeniu algorytmu dla bota skorzystano z artykułu ,,The Complexity of Rummikub Problems'' \cite{RummikubComplexity}. 
+Zauważmy, że w związku z zastosowaniem architektury trójwarstwowej, %JL
+ po stronie klienta bot zastępuje  warstwę danych bez konieczności modyfikowania logiki aplikacji.
 
 \section{Podstawowy bot}
 
-Implementacja podstawowego bota miała na celu umożliwienie przeprowadzanie rozgrywek na niskim poziomie trudności. Jest on przeznaczony dla osób, które dopiero poznają grę Rummikub. Jego zasada działania polega na formowaniu serii oraz grup z własnego zbioru kości. Bot ponadto potrafi modyfikować zbiory znajdujące się na planszy poprzez dodanie swoich kości na początek lub na koniec danego zbioru.
+Implementacja podstawowego bota miała na celu umożliwienie przeprowadzanie rozgrywek na niskim poziomie trudności. Jest on przeznaczony dla osób, które dopiero poznają grę Rummikub, a jego zasada działania polega na formowaniu serii oraz grup %JL
+(patrz: następny rozdział) z własnego zbioru kości. \mbox{Ponadto bot może} modyfikować %JL
+serie i grupy
+%JL zbiory 
+znajdujące się na planszy poprzez dodanie swoich kości na ich początku lub końcu. %JLdanego zbioru.
 
 \section{Złożoność gry}
 
-Gra Rummikub składa się z 106 kości, w których są dwa jokery. Joker może reprezentować sobą dowolną inną kość. Zatem 104 kości są numerowane od 1 do 13, w czterech różnych kolorach i każda kość występuje dwa razy. Kości można grupować w sekcje (rosnący ciąg liczb o tym samym kolorze) lub w grupy (kości o takiej samej liczbie z różnymi kolorami). Problemem jest znalezienie najlepszego wyłożenia podczas danego ruchu. \\
+Gra Rummikub składa się z 106 kości, %JL
+wśród których są dwa jokery. 
+Joker może reprezentować %JL sobą
+ dowolną inną kość. 
+ %JL Zatem
+  104 kości są numerowane od 1 do 13, w czterech różnych kolorach i każda kość występuje dwa razy. 
+  Kości można grupować w %JL sekcje
+  serie (rosnący ciąg liczb o tym samym kolorze) lub w grupy (kości o takiej samej %JL liczbie 
+  wartości z różnymi kolorami). Problemem jest znalezienie % najlepszego wyłożenia podczas danego ruchu. 
+  ruchu pozwalającej na wyłożenie jak największej liczby kości w danej turze gracza.
 
- Liczbę sposobów ułożenia grup z danej puli kości oznaczono jako $G(k, m)$, gdzie $k$ to jest liczba kolorów, a $m$ to jest liczba kopii. Na początek wzięto pod rozważanie przypadek, gdy $k = 4$, a $m = 1$. W takim przypadku dla danej wartości kości można nie formować żadnej grupy, formować cztery grupy o długości trzy lub jedną o długości cztery. Zatem $G(4,1) = 1 + {{4}\choose{3}} + 1 = 6$. W przypadku, gdy $m = 2$ pojawia się kopia każdej kości, a zatem są dwa zestawy, dla których można policzyć $G(4,1)$. Czyli $G(4,2) < G(4,1)^2$. Jest to górna granica, ponieważ pewne przypadki zostaną policzone więcej niż raz. Podczas tworzenia grup nie bierze się pod uwagę kolejności w jakiej te grupy są tworzone oraz przypadki, które łącznie dają taki sam zbiór kości, nie powinny być rozróżnialne. Pomimo tego liczba możliwych sposobów utworzenia grup rośnie nadal wykładniczo powołując się na artykuł \cite{RummikubComplexity}. Z tego powodu w implementacji algorytmu na początku formuje się serie, a dopiero później grupy z pozostałych kości. \\
+ Liczbę sposobów ułożenia grup z danej puli kości oznaczono jako $G(k, m)$, gdzie $k$ to jest liczba kolorów, a $m$ to jest liczba kopii. Na początek %JL wzięto pod rozważanie 
+ rozważono przypadek, gdy $k = 4$, a $m = 1$. W takim przypadku dla danej wartości kości można nie formować żadnej grupy, formować cztery grupy o długości trzy lub jedną o długości cztery. Zatem $G(4,1) = 1 + {{4}\choose{3}} + 1 = 6$. W przypadku, gdy $m = 2$ pojawia się kopia każdej kości, a zatem są dwa zestawy, dla których można policzyć $G(4,1)$. %JL Czyli $G(4,2) < G(4,1)^2$. Jest to górna granica, ponieważ pewne przypadki zostaną policzone więcej niż raz. 
+Ponieważ pewne przypadki zostaną policzone więcej niż raz, mamy  $G(4,2) < G(4,1)^2$.
+  %JL Podczas tworzenia grup nie bierze się pod uwagę kolejności w jakiej te grupy są tworzone oraz przypadki, które łącznie dają taki sam zbiór kości, nie powinny być rozróżnialne. Pomimo tego 
+  %JL
+  Ograniczenie górne nie jest ścisłe, jednakże, jak wskazano w artykule \cite{RummikubComplexity},  liczba możliwych sposobów utworzenia grup rośnie 
+  %JL nadal 
+  wykładniczo. %JL powołując się na artykuł .
+   Z tego powodu w implementacji algorytmu na początku formuje się serie, a dopiero później grupy z pozostałych kości. 
 
-Wybierając podejście, w którym najpierw formułuje się serie, a później grupy, dzieli się zbiór wszystkich kości (plansza oraz kości gracza) ze względu na wartość danej kości. Dla każdego podzbioru w kolejności od kości o wartościach $1$ aż do wartości $13$ tworzy się wszystkie możliwe kombinacje użycia poszczególnych kości do danych serii. Natomiast z kości, które pozostały w podzbiorach tworzy się możliwie jak największe grupy. \\
+Wybierając podejście, w którym najpierw formułuje się serie, a później grupy, dzieli się zbiór wszystkich kości (plansza oraz kości gracza) ze względu na wartość danej kości. Dla każdego podzbioru w kolejności od kości o wartościach $1$ aż do wartości $13$ tworzy się wszystkie możliwe kombinacje użycia poszczególnych kości do danych serii. Natomiast z kości, które pozostały w podzbiorach tworzy się możliwie jak największe grupy. 
 
-Zatem wystarczy dla każdego podzbioru o danej wartości kości, zdefiniować wszystkie możliwe do uzyskania konfiguracje serii. Aby seria spełniała zasady gry musi mieć co najmniej długość $3$. Z tego powodu poszczególne serie koduje się za pomocą cyfr $0$, $1$, $2$, $3$. Poszczególny stan gry będzie przedstawiony w postaci \emph{[wartość, konfiguracja serii]}. \\
+Zatem wystarczy dla każdego podzbioru o danej wartości kości, zdefiniować wszystkie możliwe do uzyskania konfiguracje serii. Aby seria spełniała zasady gry musi mieć co najmniej długość $3$. Z tego powodu serie koduje się za pomocą cyfr $0$, $1$, $2$, $3$. Każdy stan gry będzie przedstawiony w postaci \emph{[wartość, konfiguracja serii]}. %JL
 
-W grze Rummikub możliwe jest stworzenie ośmiu pełnych serii (zbiór kości 1-13). Z tego powodu, że występują cztery kolory oraz każda kość ma swoją kopię. Zatem stan gry będzie określony jako $[v, abcdefgh]$, gdzie $v \in \{1..13\}$, a $(a, b, c, d, e, f, g, h) \in \{0, 1, 2, 3\}$. Założono, że $(a, b)$ przedstawiają serie koloru czarnego, $(c, d)$ koloru niebieskiego, $(e, f)$ koloru pomarańczowego, $(g, h)$ koloru czerwonego. Stan gry składający się z serii kości $(2, 3, 4, 5)$ koloru niebieskiego oraz $(1, 2, 3)$ koloru czerwonego, będzie zakodowany w następujący sposób: $$[1, 00000001], [2, 00010002], [3, 00020003], [4, 00030000], [5, 00030000], [6, 00000000], \;  ... \;, [13, 00000000]$$
+W grze Rummikub możliwe jest stworzenie ośmiu pełnych serii (zbiór kości 1-13). Z tego powodu, że występują cztery kolory oraz każda kość ma swoją kopię. Zatem stan gry będzie określony jako $[v, abcdefgh]$, gdzie $v \in \{1..13\}$ oraz %JL $(a, b, c, d, e, f, g, h) \in \{0, 1, 2, 3\}$.
+$a, b, c, d, e, f, g, h \in \{0, 1, 2, 3\}$.
+ Założono, że $(a, b)$ przedstawiają serie koloru czarnego, $(c, d)$ koloru niebieskiego, $(e, f)$ koloru pomarańczowego, $(g, h)$ koloru czerwonego. 
+ 
+ %JL
+ Dla przykładu, stan gry składający się z serii kości $(2, 3, 4, 5)$ koloru niebieskiego oraz $(1, 2, 3)$ koloru czerwonego, będzie zakodowany w następujący sposób: $$[1, 00000001], [2, 00010002], [3, 00020003], [4, 00030000], [5, 00030000], [6, 00000000], \;  ... \;, [13, 00000000]$$
 
 \section{Zaawansowany bot}
 
-Podczas implementacji bota zmodyfikowano algorytm opisany w artykule \cite{RummikubComplexity}. $MaxScore$ oprócz zwracania największej możliwej sumy wartości wszystkich wyłożonych na planszę kości, zwraca również konfigurację serii, która dla danej wartości kości dała najlepszy wynik oraz gwarantuje, że wszystkie kości na planszy będą ponownie wykorzystane. \\
+Podczas implementacji bota zmodyfikowano algorytm opisany w artykule \cite{RummikubComplexity}. Mianowicie algorytm $MaxScore$ oprócz zwracania największej możliwej sumy wartości wszystkich wyłożonych na planszę kości, zwraca również konfigurację serii, która dla danej wartości kości dała najlepszy wynik oraz gwarantuje, że wszystkie kości na planszy będą ponownie wykorzystane. \\
 
 \begin{pseudokod}[H]
 	\SetAlTitleFnt{small}
@@ -57,32 +89,61 @@ Podczas implementacji bota zmodyfikowano algorytm opisany w artykule \cite{Rummi
 \end{pseudokod}
 \vskip 3mm
 
-Algorytm jest wykonywany rekurencyjnie dla kolejnych wartości kości $(1-13)$. Parametrem wyjściowym jest obiekt $Result$, który zawiera dwa pola: $scores$ (najlepszy wynik dla danej wartości kości) oraz $runs$ konfiguracja serii, która dała najlepszy wynik. Na początku oprócz sprawdzenia czy dana wartość $value$ nie przekroczyła maksymalnej wartości, sprawdza czy dany stan gry, nie został już poprzednio obliczony. $zeroRuns$ oznacza konfigurację serii, gdzie wszystkie serie mają długość zero. Następnie następuje iteracja po wszystkich możliwych nowych konfiguracjach serii. Funkcja $MakeRuns$ tworzy nowe konfiguracje na podstawie obecnej konfiguracji serii i dostępnych kościach o wartości $value$. Funkcja $GetRunScores$ oblicza punkty za serie na podstawie porównania nowej konfiguracji $possibleRuns$ z poprzednią $runs$. $GetGroupScores$ z kolei zwraca liczbę punktów otrzymanych za grupy kości o wartości $value$. Obie funkcje zwracają wartość $-1$, gdy kości należące do planszy nie zostaną wyłożone. W takim przypadku dane $possibleRuns$ jest odrzucane i następuje dalsza iteracja. W przeciwnym wypadku jest wywoływana rekurencyjnie funkcja $MaxScore$, której przekazywana wartość kości powiększona o jeden, nowa konfiguracja kości oraz $tableTiles$. Po zsumowaniu wyniku sprawdzane jest, czy otrzymywany wynik jest obecnie największym możliwym wynikiem dla tego stanu gry. Najlepszy wynik otrzymany w poszczególnym stanie jest zapisywany do tablicy wszystkich stanów wraz z konfiguracją serii, która została wybrana dla tego stanu. \\
+Algorytm jest wykonywany rekurencyjnie dla kolejnych wartości kości $(1-13)$. Parametrem wyjściowym jest obiekt $Result$, który zawiera dwa pola: $scores$ (najlepszy wynik dla danej wartości kości) oraz $runs$ konfiguracja serii, która dała najlepszy wynik. Na początku oprócz sprawdzenia czy dana wartość $value$ nie przekroczyła maksymalnej wartości, sprawdza czy dany stan gry, nie został już poprzednio obliczony. $zeroRuns$ oznacza konfigurację serii, gdzie wszystkie serie mają długość zero. Następnie następuje iteracja po wszystkich możliwych nowych konfiguracjach serii. Funkcja $MakeRuns$ tworzy nowe konfiguracje na podstawie obecnej konfiguracji serii i dostępnych kościach o wartości $value$. Funkcja $GetRunScores$ oblicza punkty za serie na podstawie porównania nowej konfiguracji $possibleRuns$ z poprzednią $runs$. $GetGroupScores$ z kolei zwraca liczbę punktów otrzymanych za grupy kości o wartości $value$. Obie funkcje zwracają wartość $-1$, gdy kości należące do planszy nie zostaną wyłożone. W takim przypadku dane $possibleRuns$ jest odrzucane i następuje dalsza iteracja. W przeciwnym wypadku jest wywoływana rekurencyjnie funkcja $MaxScore$, której przekazywana wartość kości powiększona o jeden, nowa konfiguracja kości oraz $tableTiles$. Po zsumowaniu wyniku sprawdzane jest, czy otrzymywany wynik jest obecnie największym możliwym wynikiem dla tego stanu gry. Najlepszy wynik otrzymany w %JL poszczególnym 
+danym stanie jest zapisywany do tablicy wszystkich stanów wraz z konfiguracją serii, która została wybrana dla tego stanu. 
 
-Po wykonanej algorytm zwraca najlepszy możliwy wynik z pierwszą wybraną konfiguracją serii. Dzięki temu, że dla każdej wartości $value$ wynik jest zapisywany do tablicy $result$ z indeksem $[value, runs]$ można odtworzyć przebieg konfiguracji serii. Zatem iterując po wszystkich wartościach $value$ można odtworzyć utworzone serie. Wiedząc jakie kości zostały użyte do stworzenia serii można wygenerować grupy dla poszczególnych wartości kości. W implementacji zaawansowanego bota pominięto obecność jokerów w grze. Ich dodanie wprowadziłoby pewne modyfikacje w algorytmie $MaxScore$. Kwestia ta pozostała w aspekcie dalszego rozwoju serwisu. \\
+%JL Po wykonanej 
+Algorytm zwraca najlepszy możliwy wynik z pierwszą wybraną konfiguracją serii. Dzięki temu, że dla każdej wartości $value$ wynik jest zapisywany do tablicy $result$ z indeksem $[value, runs]$ można odtworzyć przebieg konfiguracji serii. Zatem iterując po wszystkich wartościach $value$ można odtworzyć utworzone serie. Wiedząc jakie kości zostały użyte do stworzenia serii można wygenerować grupy dla poszczególnych wartości kości. W implementacji zaawansowanego bota pominięto obecność jokerów w grze. Ich dodanie wprowadziłoby pewne modyfikacje w algorytmie $MaxScore$. Kwestia ta pozostała w aspekcie dalszego rozwoju serwisu. 
 
-\emph{MakeRuns}: - jako parametry wejściowe przyjmuje wartość kości $value$ oraz konfigurację serii $runs$ otrzymaną z poprzedniej wartości kości. \\
-Funkcja zlicza liczbę dostępnych kości o danej wartości $value$ i na tej podstawie tworzy wszystkie możliwe nowe konfiguracje serii. Dla każdego koloru mamy dwie serie. W zależności od liczby dostępnych kości o tym kolorze są trzy możliwości modyfikacji: niedodanie kości do żadnej serii, dodanie kości do jednej z serii, dodanie kości do dwóch serii. W przypadku, gdy tylko jedna seria zostanie przedłużona, a serie te nie różnią się długością, nie rozróżnia się, do której serii została dodana kość. Gdy do danej serii nie jest dodawana kość, seria ta jest przerywana. W przykładach dla uproszczenia wzięto pod uwagę jedynie modyfikacje serii koloru czarnego. \\ \\
-Przykłady: \\
-Konfiguracja serii $runs$  ma postać - $010000000$, więc zawiera jedną serię koloru czarnego o długości $1$. Do dyspozycji są dwie kości koloru czarnego o danej wartości. Możliwe do otrzymania nowe konfiguracje serii wyglądają następująco: $000000000$ (nie dodanie żadnej kości do serii koloru czarnego), $020000000$ (dodanie kości do drugiej serii koloru czarnego), $100000000$ (dodanie kości do pierwszej serii koloru czarnego), $120000000$ (dodanie kości do obu serii koloru czarnego). \\ \\
-Konfiguracja serii $runs$  ma postać - $110000000$, więc zawiera dwie serie koloru czarnego o długości $1$. Do dyspozycji są dwie kości koloru czarnego o danej wartości. Możliwe do otrzymania nowe konfiguracje serii wyglądają następująco: $000000000$ (nie dodanie żadnej kości do serii koloru czarnego), $020000000$ (dodanie kości do drugiej serii koloru czarnego), $220000000$ (dodanie kości do obu serii koloru czarnego). \\ \\
-Konfiguracja serii $runs$  ma postać - $130000000$, więc zawiera dwie serie koloru czarnego o długości $1$ oraz $3$. Do dyspozycji są dwie kości koloru czarnego o danej wartości. Możliwe do otrzymania nowe konfiguracje serii wyglądają następująco: $000000000$ (nie dodanie żadnej kości do serii koloru czarnego), $030000000$ (dodanie kości do drugiej serii koloru czarnego), $200000000$ (dodanie kości do pierwszej serii koloru czarnego), $230000000$ (dodanie kości do obu serii koloru czarnego). \\
+%JL
+Poniżej omówiono działanie metody \emph{MakeRuns} wywołanej w linii 6 algorytmu \ref{alg:mine}.
+Jako parametry wejściowe przyjmuje ona wartość kości $value$ oraz konfigurację serii $runs$ otrzymaną z poprzedniej wartości kości. 
+Funkcja zlicza liczbę dostępnych kości o danej wartości $value$ i na tej podstawie tworzy wszystkie możliwe nowe konfiguracje serii. Dla każdego koloru mamy dwie serie. W zależności od liczby dostępnych kości o tym kolorze są trzy możliwości modyfikacji: niedodanie kości do żadnej serii, dodanie kości do jednej z serii, dodanie kości do dwóch serii. W przypadku, gdy tylko jedna seria zostanie przedłużona, a serie te nie różnią się długością, nie rozróżnia się, do której serii została dodana kość. Gdy do danej serii nie jest dodawana kość, seria ta jest przerywana. W poniższych przykładach dla uproszczenia wzięto pod uwagę jedynie modyfikacje serii koloru czarnego. %JL
 
-\emph{tableTiles} - struktura zawierająca dla każdego koloru dwa liczniki kości (jeden licznik dla $value-2$, drugi licznik dla $value-1$), które znajdują się na planszy, a zostały użyte w seriach o długości mniejszej niż $3$. Jest ona potrzebna, aby mieć pewność, że wszystkie kości znajdujące się na planszy ponownie zostały wyłożone. Dla przypadku, gdy seria o długości mniejszej niż $3$ zostanie przerwana, kości nie są już brane pod uwagę w dalszych wyłożeniach. W przypadku, gdy wśród nich będzie kość należąca do planszy, złamana zostanie zasada gry. \\
+\begin{example}
+	Konfiguracja serii $runs$  ma postać - $010000000$, więc zawiera jedną serię koloru czarnego o długości $1$. Do dyspozycji są dwie kości koloru czarnego o danej wartości. Możliwe do otrzymania nowe konfiguracje serii wyglądają następująco: $000000000$ (nie dodanie żadnej kości do serii koloru czarnego), $020000000$ (dodanie kości do drugiej serii koloru czarnego), $100000000$ (dodanie kości do pierwszej serii koloru czarnego), $120000000$ (dodanie kości do obu serii koloru czarnego). 
+\end{example}
 
-\emph{GetRunScores}: - jako parametry wejściowe przyjmuje nową konfigurację serii $possibleRuns$, poprzednią konfigurację serii $runs$, $tableTiles$, dostępne kości $tiles$, daną wartość kości $value$.  \\
-Metoda ta zwraca wynik na podstawie porównania $possibleRuns$ z $runs$. W przykładach dla uproszenia wzięto jedynie pod uwagę modyfikacje jednej serii koloru czarnego.\\ \\
-Przykłady: \\
-Konfiguracja serii $runs$ - $010000000$, nowa konfiguracja serii $possibleRuns$ - $020000000$. Ze zbioru $tiles$ usuwana jest czarna kość o wartości $value$. W $tableTiles$ licznik $value-1$ staje się licznikiem $value-2$, a licznik $value-1$ wynosi $1$, gdy usunięta kość znajdowała się na planszy. Seria ma długość mniejszą niż 3, więc zwracany jest wynik $0$. \\ \\
+\begin{example}
+Konfiguracja serii $runs$  ma postać - $110000000$, więc zawiera dwie serie koloru czarnego o długości $1$. Do dyspozycji są dwie kości koloru czarnego o danej wartości. Możliwe do otrzymania nowe konfiguracje serii wyglądają następująco: $000000000$ (nie dodanie żadnej kości do serii koloru czarnego), $020000000$ (dodanie kości do drugiej serii koloru czarnego), $220000000$ (dodanie kości do obu serii koloru czarnego). 
+\end{example}
+
+\begin{example}
+Konfiguracja serii $runs$  ma postać - $130000000$, więc zawiera dwie serie koloru czarnego o długości $1$ oraz $3$. Do dyspozycji są dwie kości koloru czarnego o danej wartości. Możliwe do otrzymania nowe konfiguracje serii wyglądają następująco: $000000000$ (nie dodanie żadnej kości do serii koloru czarnego), $030000000$ (dodanie kości do drugiej serii koloru czarnego), $200000000$ (dodanie kości do pierwszej serii koloru czarnego), $230000000$ (dodanie kości do obu serii koloru czarnego). 
+\end{example}
+
+%JL
+Poniżej omówiono strukturę \emph{tableTiles}  wykorzystaną w algorytmie \ref{alg:mine}.
+Struktura zawiera dla każdego koloru dwa liczniki kości (jeden licznik dla $\;value-2\;$, drugi licznik dla $\;value-1\;$), które znajdują się na planszy, a zostały użyte w seriach o długości mniejszej niż $3$. Jest ona potrzebna, aby mieć pewność, że wszystkie kości znajdujące się na planszy ponownie zostały wyłożone. Dla przypadku, gdy seria o długości mniejszej niż $3$ zostanie przerwana, kości nie są już brane pod uwagę w dalszych wyłożeniach. W przypadku, gdy wśród nich będzie kość należąca do planszy, złamana zostanie zasada gry. \\
+
+
+
+%JL
+Poniżej omówiono działanie metody \emph{GetRunScores} wywołanej w linii 7 algorytmu \ref{alg:mine}.
+Jako parametry wejściowe przyjmuje nową konfigurację serii $possibleRuns$, poprzednią konfigurację serii $runs$, $tableTiles$, dostępne kości $tiles$, daną wartość kości $value$.  
+Metoda ta zwraca wynik na podstawie porównania $possibleRuns$ z $runs$. W poniższych przykładach dla uproszenia wzięto jedynie pod uwagę modyfikacje jednej serii koloru czarnego.
+
+\begin{example}
+Konfiguracja serii $runs$ - $010000000$, nowa konfiguracja serii $possibleRuns$ - $020000000$. Ze zbioru $tiles$ usuwana jest czarna kość o wartości $value$. W $tableTiles$ licznik $value-1$ staje się licznikiem $value-2$, a licznik $value-1$ wynosi $1$, gdy usunięta kość znajdowała się na planszy. Seria ma długość mniejszą niż 3, więc zwracany jest wynik $0$. 
+\end{example}
+
+\begin{example}
 Konfiguracja serii $runs$ - $020000000$, nowa konfiguracja serii $possibleRuns$ - $000000000$.
-Seria została przerwana, więc kości koloru czarnego o wartościach $value-2$ oraz $value-1$ są dodawane do zbioru $tiles$. Na podstawie $tableTiles$ można wywnioskować, czy te kości należą do planszy. W takim przypadku zwrócony będzie wynik $-1$, w przeciwnym razie zwracany jest wynik $0$. \\ \\
-Konfiguracja serii $runs$ - $020000000$, nowa konfiguracja serii $possibleRuns$ - $030000000$.
-Z $tiles$ usuwana jest czarna kość o wartości $value$. Liczniki w $tableTiles$ są zerowane z powodu zakończenia serii. Zwracany jest wynik $value-2 + value-1 + value$. \\ \\
-Konfiguracja serii $runs$ - $030000000$, nowa konfiguracja serii $possibleRuns$ - $030000000$.
-Zwracany jest wynik $value$. \\ \\
+Seria została przerwana, więc kości koloru czarnego o wartościach $value-2$ oraz $value-1$ są dodawane do zbioru $tiles$. Na podstawie $tableTiles$ można wywnioskować, czy te kości należą do planszy. W takim przypadku zwrócony będzie wynik $-1$, w przeciwnym razie zwracany jest wynik $0$. 
+\end{example}
 
-\emph{GetGroupScores}: - jako parametry przyjmuje $tableTiles$, dostępne kości $tiles$, daną wartość kości $value$.  \\
-Funkcja ta sprawdza, czy kości o wartości $value$ są w stanie utworzyć grupę/y (grupa zawiera minimum $3$ kości). Usuwa wykorzystane kości ze zbioru $tiles$. Zwraca wynik $value$ pomnożony przez liczbę wykorzystanych kości. W przypadku, gdy kość w grupie nie należy do planszy, natomiast kopia tej kości, która należała do planszy, została użyta w serii o długości mniejszej niż $3$, kość ta nie jest już uwzględniana w $tableTiles$. W przypadku grup mamy pewność, że kości zostaną wyłożone. Ze względu na to, że każda kość ma swoją kopię w grze, w trakcie tworzenia serii oraz grup priorytetowo są brane kości należące do planszy. \\
+\begin{example}
+Konfiguracja serii $runs$ - $020000000$, nowa konfiguracja serii $possibleRuns$ - $030000000$.
+Z $tiles$ usuwana jest czarna kość o wartości $value$. Liczniki w $tableTiles$ są zerowane z powodu zakończenia serii. Zwracany jest wynik $value-2 + value-1 + value$. \end{example}
+
+\begin{example}
+Konfiguracja serii $runs$ - $030000000$, nowa konfiguracja serii $possibleRuns$ - $030000000$.
+Zwracany jest wynik $value$. 
+\end{example}
+
+Poniżej omówiono działanie metody \emph{GetGroupScores} wywołanej w linii 8 algorytmu \ref{alg:mine}.
+Jako parametry przyjmuje $tableTiles$, dostępne kości $tiles$, daną wartość kości $value$.  
+Funkcja ta sprawdza, czy kości o wartości $value$ są w stanie utworzyć grupę/y (grupa zawiera minimum $3$ kości). Usuwa wykorzystane kości ze zbioru $tiles$. Zwraca wynik $value$ pomnożony przez liczbę wykorzystanych kości. W przypadku, gdy kość w grupie nie należy do planszy, natomiast kopia tej kości, która należała do planszy, została użyta w serii o długości mniejszej niż $3$, kość ta nie jest już uwzględniana w $tableTiles$. W przypadku grup mamy pewność, że kości zostaną wyłożone. Ze względu na to, że każda kość ma swoją kopię w grze, w trakcie tworzenia serii oraz grup priorytetowo są brane kości należące do planszy. 
 
 
 
