@@ -42,7 +42,15 @@ Cubit komunikuje się z warstwą danych poprzez funkcje asynchroniczne. Natomias
 \section{Firebase}
 
 Rolę serwera i bazy danych pełni platforma Firebase. Technologia ta, zarządzana również przez Google, określana jest jako Backend-as-a-Service. Firebase dostarcza wiele funkcjonalności
-wspierające tworzenie projektów w tym między innymi uwierzytelnianie użytkowników, bazę danych NoSQL oraz API odpowiedzialne za komunikację. Usługi, które świadczy Firebase są bezpłatne, jeśli nie przekroczą pewnego z góry ustalonego limitu zdefiniowanego dla poszczególnej funkcjonalności. 
+wspierające tworzenie projektów w tym między innymi uwierzytelnianie użytkowników, bazę danych NoSQL, hosting oraz API odpowiedzialne za komunikację. Usługi, które świadczy Firebase są bezpłatne, jeśli nie przekroczą pewnego z góry ustalonego limitu zdefiniowanego dla poszczególnej funkcjonalności. \\
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{img/firebase.png}
+	\end{center}
+	\caption{{\color{dgray} Porównanie struktury tradycyjnego serwera z platformą Firebase.}} 
+	\label{struktura_firebase}
+\end{figure}
 
 \subsection{Firestore}
 
@@ -56,7 +64,7 @@ Firestore umożliwia konfigurację dostępu do bazy danych za pomocą definiowan
 \subsection{Funkcje Firebase}
 
 Umożliwiają zaimplementowanie własnego kodu po stronie serwera. Są wywoływane poprzez zapytania HTTPS lub w odpowiedzi na zdarzenia powstałe w bazie danych Firestore. 
-Możliwe jest wywoływanie bezpośrednio z poziomu aplikacji. Do zapytania dołączane są tokeny uwierzytelniania Firebase i tokeny sprawdzania aplikacji.
+Możliwe jest wywoływanie bezpośrednio z poziomu aplikacji. Do zapytania dołączane są tokeny uwierzytelniania Firebase i tokeny sprawdzania aplikacji. Dostępne są dwa języki programowania, w których można zaimplementować funkcje Firebase. Można wybrać język Javascript lub jego odpowiednik ze statycznym typowaniem Typescript. \\
 
 \subsection{Konsola Firebase}
 

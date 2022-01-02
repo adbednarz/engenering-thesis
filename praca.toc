@@ -16,8 +16,8 @@
 \contentsline {section}{\numberline {3.2}Firebase}{11}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Firestore}{11}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Funkcje Firebase}{11}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Konsola Firebase}{11}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Emulator}{11}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.3}Konsola Firebase}{12}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Emulator}{12}{subsection.3.2.4}%
 \contentsline {chapter}{\numberline {4}Implementacja serwisu}{13}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Serwer}{13}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Baza danych}{13}{subsection.4.1.1}%
@@ -32,6 +32,6 @@
 \contentsline {section}{\numberline {5.1}Podstawowy bot}{27}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Złożoność gry}{27}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Zaawansowany bot}{28}{section.5.3}%
-\contentsline {chapter}{Podsumowanie}{31}{chapter*.15}%
-\contentsline {chapter}{Bibliografia}{33}{chapter*.16}%
+\contentsline {chapter}{Podsumowanie}{31}{chapter*.16}%
+\contentsline {chapter}{Bibliografia}{33}{chapter*.17}%
 \contentsline {chapter}{\numberline {A}Zawartość płyty CD}{35}{appendix.A}%

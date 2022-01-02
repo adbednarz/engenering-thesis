@@ -76,7 +76,7 @@ Nawigacja pomiędzy stronami odbywa się poprzez dynamiczną nawigacją z wygene
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=13cm,height=10cm]{img/nawigacja.png}
+		\includegraphics[width=12cm,height=8.7cm]{img/nawigacja.png}
 	\end{center}
 	\caption{{\color{dgray}Diagram nawigacji.}} 
 	\label{nawigacja}
@@ -93,7 +93,7 @@ Charakterystyka poszczególnych klas w warstwie prezentacji:
 	\item \emph{GameScreen} - klasa zawierająca dwa przyciski, które definiują sposób dołączenia do rozgrywki. Prowadzą one do stron \emph{ActivePlayersScreen}, \emph{GameSettingsScreen} i jako parametr przekazują ID gracza. Ponadto, gdy użytkownik chce powrócić do wcześniejszej strony zostanie wyświetlone okno dialogowe, wymuszające potwierdzenie decyzji, gdyż wiążę się ona z wylogowaniem użytkownika i powrotem do ekranu startowego. W przypadku, gdy użytkownik zostanie zaproszony do gry przez innego gracza, również zostanie wyświetlone okno dialogowe, w którym gracz będzie mógł przyjąć lub odrzucić zaproszenie.
 	\item \emph{ActivePlayersScreen} - składa się z wyszukiwarki, listy aktywnych użytkowników oraz przycisku. Lista aktywnych użytkowników jest sortowana względem wyrazu wpisanego do wyszukiwarki. Użytkownik wybiera z listy graczy, których chce zaprosić do gry. Po kliknięciu w przycisk przechodzi do \emph{GameSettings} z parametrami \emph{playerId} (ID użytkownika), \emph{selectedPlayers} wybrani gracze, \emph{serverType} (nazwę serwera).
 	\item \emph{GameSettingsScreen} - klasa zawierająca dwa pola przeznaczone do konfiguracji liczby uczestników i czasu przeznaczonego na ruch gracza oraz przycisk. Po kliknięciu w przycisk ukazuje się obracające kółeczko i napis z liczbą graczy brakujących do rozpoczęcia rozgrywki. Po pojawieniu się wymaganej liczby graczy nastąpi przekierowanie do \emph{GameActionScreen} z parametrami \emph{gameId}, \emph{playerId}, \emph{serverType}.
-	\item \emph{GameActionScreen} - klasa obrazująca całą rozgrywkę w grę Rummikub. W górnej części znajduję się panel, na którym widać wszystkich uczestników i ilość pozostałego czasu dla aktualnie grającego gracza oraz przycisk zatwierdzający ruch. W środkowej części znajduje się plansza, na której można umieszczać swoje kości tworząc lub rozbudowując obecnie znajdujące się tam kości. W dolnej części umieszczony jest zbiór kości, które aktualnie posiada gracz. Komunikaty informacyjne o występujących zdarzeniach w czasie rozgrywki są pokazywane w postaci znikających dymków (toasty).
+	\item \emph{GameActionScreen} - klasa obrazująca całą rozgrywkę w grę Rummikub. W górnej części znajduję się panel, na którym widać wszystkich uczestników i ilość pozostałego czasu dla aktualnie grającego gracza oraz przycisk zatwierdzający ruch. W środkowej części znajduje się plansza, na której można umieszczać swoje kości tworząc lub rozbudowując obecnie znajdujące się tam kości. W dolnej części umieszczony jest zbiór kości, które aktualnie posiada gracz. Komunikaty informacyjne o występujących zdarzeniach w czasie rozgrywki są pokazywane w postaci znikających dymków (toasty). 
 \end{itemize}
 
 \subsection{Warstwa logiki}
@@ -194,13 +194,13 @@ Proces na rysunku 4.5 rozpoczyna się pobraniem strumienia z \emph{AuthFirebase}
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=14cm,height=13cm]{img/diagram-sekwencji-gameSettings.png}
+		\includegraphics[width=14cm,height=11cm]{img/diagram-sekwencji-gameSettings.png}
 	\end{center}
 	\caption{{\color{dgray}Diagram sekwencji konfiguracji gry.}} 
 	\label{GameSettingsCubit}
 \end{figure} 
 
-Dwa początkowe procesy ukazane na diagramie zależą od tego z jakimi parametrami została utworzona klasa \emph{GameSettingsCubit}. W przypadku, gdy gracz szuka gry do dołączenia może odpowiednio skonfigurować ustawienia gry, zmieniając liczbę graczy oraz czas przeznaczony na  wykonanie ruchu. Jeśli jednak gracz wybrał opcję stworzenia własnej gry z wybranymi graczami, może jedynie zmienić czas przeznaczony na ruch. Klasa stanu \emph{GameSettingsChanged} zawiera aktualnie wybrane ustawienia. Gdy użytkownik potwierdzi ustawienia za pośrednictwem \emph{GameSettingsCubit} w \emph{GameFirebase} jest wywoływana metoda \emph{createGame} (parametry: kod ID gracza, lista nazw zaproszonych graczy, czas przeznaczony na ruch w grze) lub metoda \emph{searchGame} (parametry: kod ID gracza, liczba graczy w grze, czas przeznaczony na ruch w grze). \emph{GameSettingsScreen} po otrzymaniu eventu \emph{Loading}, zastępuję dotychczasowy widok obracającym się kółeczkiem. W ostatnim procesie metoda \emph{missingPlayers} z parametrem ID gry, zwraca strumień, który powiadamia o dołączających graczach do gry. Klasa stanu \emph{Waiting} zawiera liczbę brakujących graczy do rozpoczęcia gry. Klasa \emph{GameFound} zawiera ID gry i wskazuje, że gra jest już gotowa do rozpoczęcia. W przypadku, gdy gracz przyjął zaproszenie do gry wykona się jedynie ostatni proces z pominięciem dwóch pierwszych, ponieważ gracz nie ma już wpływu na ustawienia gry. \\ \\ \\ \\ \\
+Dwa początkowe procesy ukazane na diagramie zależą od tego z jakimi parametrami została utworzona klasa \emph{GameSettingsCubit}. W przypadku, gdy gracz szuka gry do dołączenia może odpowiednio skonfigurować ustawienia gry, zmieniając liczbę graczy oraz czas przeznaczony na  wykonanie ruchu. Jeśli jednak gracz wybrał opcję stworzenia własnej gry z wybranymi graczami, może jedynie zmienić czas przeznaczony na ruch. Klasa stanu \emph{GameSettingsChanged} zawiera aktualnie wybrane ustawienia. Gdy użytkownik potwierdzi ustawienia za pośrednictwem \emph{GameSettingsCubit} w \emph{GameFirebase} jest wywoływana metoda \emph{createGame} (parametry: kod ID gracza, lista nazw zaproszonych graczy, czas przeznaczony na ruch w grze) lub metoda \emph{searchGame} (parametry: kod ID gracza, liczba graczy w grze, czas przeznaczony na ruch w grze). \emph{GameSettingsScreen} po otrzymaniu eventu \emph{Loading}, zastępuję dotychczasowy widok obracającym się kółeczkiem. W ostatnim procesie metoda \emph{missingPlayers} z parametrem ID gry, zwraca strumień, który powiadamia o dołączających graczach do gry. Klasa stanu \emph{Waiting} zawiera liczbę brakujących graczy do rozpoczęcia gry. Klasa \emph{GameFound} zawiera ID gry i wskazuje, że gra jest już gotowa do rozpoczęcia. W przypadku, gdy gracz przyjął zaproszenie do gry wykona się jedynie ostatni proces z pominięciem dwóch pierwszych, ponieważ gracz nie ma już wpływu na ustawienia gry. \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
 
 \begin{figure}[h!]
 	\begin{center}
