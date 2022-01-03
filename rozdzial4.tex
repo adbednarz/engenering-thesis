@@ -214,13 +214,13 @@ Klasa \emph{GameActionPanelCubit} jest odpowiedzialna za zarządzanie stanem gry
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=14cm,height=13cm]{img/diagram-sekwencji-board.png}
+		\includegraphics[width=16cm,height=14cm]{img/diagram-sekwencji-board.png}
 	\end{center}
 	\caption{{\color{dgray}Diagram sekwencji planszy rozgrywki.}} 
 	\label{GameActionBoardCubit}
 \end{figure} 
 
-Klasa \emph{GameActionBoardCubit} jest odpowiedzialna za zarządzanie planszą gry. Pobiera strumień z \emph{GameFirebase}, który będzie przekazywał modyfikacje planszy przeprowadzone przez innych użytkowników. Klasa stanu \emph{BoardChanged} zawiera listę zbiorów kości. Następnie są obsługiwane dwa procesy dotyczące planszy. Proces pierwszy aktualizuje stan planszy za każdym razem, gdy gracz dokona modyfikacji pod warunkiem, że ma prawo ruchu. Modyfikacje mogą odbywać się trzema sposobami: \emph{addNewSet} dodanie kości do planszy tworzy nowy zbiór, \emph{combineTwoSet} dodanie kości łączy dwa zbiory, \emph{addToExistingSet} kość jest dodwana do istniejącego zbioru. Drugi proces następuje, gdy gracz chce zatwierdzić swoje zmiany przeprowadzone na planszy. W takim przypadku \emph{GameActionBoardCubit} przeprowadza walidację stanu planszy. Metoda \emph{\_isValid} wskazuje, czy otrzymany zbiór kości jest zgodny z zasadami gry. Jeśli tak to zostanie wywołana funkcja dodania kości po stronie \emph{GameFirebase}, w przeciwnym wypadku zostanie wyświetlone powiadomie o tym, że plansza nie jest ułożona w poprawny sposób. W momencie, gdy czas gracza minął, a ten nie zdążył wyłożyć kości o poprawnej konfiguracji, plansza wraca do stanu sprzed modyfikacji ze strony danego gracza. \\ \\ \\ \\ \\ \\
+Klasa \emph{GameActionBoardCubit} jest odpowiedzialna za zarządzanie planszą gry. Pobiera strumień z \emph{GameFirebase}, który będzie przekazywał modyfikacje planszy przeprowadzone przez innych użytkowników. Klasa stanu \emph{BoardChanged} zawiera listę zbiorów kości. Następnie są obsługiwane dwa procesy dotyczące planszy. Proces pierwszy aktualizuje stan planszy za każdym razem, gdy gracz dokona modyfikacji pod warunkiem, że ma prawo ruchu. Modyfikacje mogą odbywać się trzema sposobami: \emph{addNewSet} dodanie kości do planszy tworzy nowy zbiór, \emph{combineTwoSet} dodanie kości łączy dwa zbiory, \emph{addToExistingSet} kość jest dodwana do istniejącego zbioru. Drugi proces następuje, gdy gracz chce zatwierdzić swoje zmiany przeprowadzone na planszy. W takim przypadku \emph{GameActionBoardCubit} przeprowadza walidację stanu planszy. Metoda \emph{\_isValid} wskazuje, czy otrzymany zbiór kości jest zgodny z zasadami gry. Jeśli tak to zostanie wywołana funkcja dodania kości po stronie \emph{GameFirebase}, w przeciwnym wypadku zostanie wyświetlone powiadomie o tym, że plansza nie jest ułożona w poprawny sposób. W momencie, gdy czas gracza minął, a ten nie zdążył wyłożyć kości o poprawnej konfiguracji, plansza wraca do stanu sprzed modyfikacji ze strony danego gracza. \\ \\ \\ \\
 
 \begin{figure}[h!]
 	\begin{center}
